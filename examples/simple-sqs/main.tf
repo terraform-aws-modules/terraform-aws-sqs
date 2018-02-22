@@ -5,11 +5,10 @@ provider "aws" {
 module "users_queue" {
   source = "../../"
 
-  name        = "users"
+  name = "users"
 
   tags = {
     Project    = "secret"
     Department = "kingdom"
   }
-
 }
