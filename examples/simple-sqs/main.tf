@@ -12,3 +12,17 @@ module "users_queue" {
     Department = "kingdom"
   }
 }
+
+# This queue should not be created
+module "users_queue_disabled" {
+  source = "../../"
+
+  name = "users"
+
+  create = false
+
+  tags = {
+    Project    = "secret"
+    Department = "kingdom"
+  }
+}

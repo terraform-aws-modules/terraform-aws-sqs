@@ -1,9 +1,9 @@
 locals {
-  create_this_sqs_queue = "${var.create && var.kms_master_key_id == "" ? 1 : 0}"
+  create_this_sqs_queue = "${var.kms_master_key_id == "" ? 1 : 0}"
 }
 
 resource "aws_sqs_queue" "this" {
-  count = "${local.create_this_sqs_queue}"
+  count = "${var.create && local.create_this_sqs_queue == 1 ? 1 : 0}"
 
   name = "${var.name}"
 
@@ -21,7 +21,7 @@ resource "aws_sqs_queue" "this" {
 }
 
 resource "aws_sqs_queue" "this_with_kms" {
-  count = "${1 - local.create_this_sqs_queue}"
+  count = "${var.create && local.create_this_sqs_queue == 0 ? 1 : 0}"
 
   name = "${var.name}"
 
