@@ -8,7 +8,6 @@ resource "random_string" "id" {
   upper   = false
 }
 
-
 resource "aws_sqs_queue" "this" {
   count = "${var.create && local.create_this_sqs_queue == 1 ? 1 : 0}"
 
@@ -49,28 +48,28 @@ resource "aws_sqs_queue" "this_with_kms" {
 }
 
 resource "aws_iam_policy" "sqs_iam_send_policy" {
-  count = "${var.create && local.create_this_sqs_queue == 1 ? 1 : 0}"
+  count  = "${var.create && local.create_this_sqs_queue == 1 ? 1 : 0}"
   name   = "sqs-iam-send-policy-${var.name}-${random_string.id.result}"
   path   = "/"
   policy = "${data.aws_iam_policy_document.sqs_iam_send_policy.json}"
 }
 
 resource "aws_iam_policy" "sqs_iam_send_policy_queue_with_kms" {
-  count = "${var.create && local.create_this_sqs_queue == 0 ? 1 : 0}"
+  count  = "${var.create && local.create_this_sqs_queue == 0 ? 1 : 0}"
   name   = "sqs-kms-iam-send-policy-${var.name}-${random_string.id.result}"
   path   = "/"
   policy = "${data.aws_iam_policy_document.sqs_iam_send_policy_queue_with_kms.json}"
 }
 
 resource "aws_iam_policy" "sqs_iam_get_policy" {
-  count = "${var.create && local.create_this_sqs_queue == 1 ? 1 : 0}"
+  count  = "${var.create && local.create_this_sqs_queue == 1 ? 1 : 0}"
   name   = "sqs-iam-get-policy-${var.name}-${random_string.id.result}"
   path   = "/"
   policy = "${data.aws_iam_policy_document.sqs_iam_get_policy.json}"
 }
 
 resource "aws_iam_policy" "sqs_iam_get_policy_queue_with_kms" {
-  count = "${var.create && local.create_this_sqs_queue == 0 ? 1 : 0}"
+  count  = "${var.create && local.create_this_sqs_queue == 0 ? 1 : 0}"
   name   = "sqs-kms-iam-get-policy-${var.name}-${random_string.id.result}"
   path   = "/"
   policy = "${data.aws_iam_policy_document.sqs_iam_get_policy_queue_with_kms.json}"
