@@ -3,6 +3,11 @@ variable "create" {
   default     = true
 }
 
+variable "sqs_queue_with_kms" {
+  description = "Whether to create SQS queue with KMS encryption"
+  default     = false
+}
+
 variable "name" {
   description = "This is the human-readable name of the queue. If omitted, Terraform will assign a random name."
   default     = ""

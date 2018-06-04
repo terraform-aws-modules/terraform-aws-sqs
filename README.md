@@ -58,6 +58,7 @@ module "user_queue" {
 | policy | The JSON policy for the SQS queue | string | `` | no |
 | receive_wait_time_seconds | The time for which a ReceiveMessage call will wait for a message to arrive (long polling) before returning. An integer from 0 to 20 (seconds) | string | `0` | no |
 | redrive_policy | The JSON policy to set up the Dead Letter Queue, see AWS docs. Note: when specifying maxReceiveCount, you must specify it as an integer (5), and not a string ("5") | string | `` | no |
+| sqs_queue_with_kms | Whether to create SQS queue with KMS encryption | string | `false` | no |
 | tags | A mapping of tags to assign to all resources | string | `<map>` | no |
 | visibility_timeout_seconds | The visibility timeout for the queue. An integer from 0 to 43200 (12 hours) | string | `30` | no |
 

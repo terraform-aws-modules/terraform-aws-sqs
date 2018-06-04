@@ -20,7 +20,9 @@ Note that this example may create resources which cost money. Run `terraform des
 
 | Name | Description |
 |------|-------------|
-| this_sqs_queue_arn | The ARN of the SQS queue |
-| this_sqs_queue_id | The URL for the created Amazon SQS queue |
+| dynamic_kms_sqs_queue_arn | The ARN of the SQS queue (with dynamic KMS key) |
+| dynamic_kms_sqs_queue_id | The URL for the created Amazon SQS queue (with dynamic KMS key) |
+| static_kms_this_sqs_queue_arn | The ARN of the SQS queue (with static KMS key) |
+| static_kms_this_sqs_queue_id | The URL for the created Amazon SQS queue (with static KMS key) |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
