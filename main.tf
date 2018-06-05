@@ -1,5 +1,5 @@
 resource "aws_sqs_queue" "this" {
-  count = "${var.create && (var.sqs_queue_with_kms == false) ? 1 : 0}"
+  count = "${var.create && var.sqs_queue_with_kms == 0 ? 1 : 0}"
 
   name = "${var.name}"
 
@@ -17,7 +17,7 @@ resource "aws_sqs_queue" "this" {
 }
 
 resource "aws_sqs_queue" "this_with_kms" {
-  count = "${var.create && var.sqs_queue_with_kms ? 1 : 0}"
+  count = "${var.create && var.sqs_queue_with_kms == 1 ? 1 : 0}"
 
   name = "${var.name}"
 

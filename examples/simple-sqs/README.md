@@ -1,6 +1,6 @@
 # Simple SQS queue example
 
-Configuration in this directory creates single SQS queue.
+Configuration in this directory creates simple SQS queues.
 
 ## Usage
 
