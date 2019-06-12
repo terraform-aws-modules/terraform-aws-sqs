@@ -4,8 +4,9 @@
 
 
 <a name="v2.0.0"></a>
-## [v2.0.0] - 0001-01-01
+## [v2.0.0] - 2019-06-12
 
+- Upgraded module to support Terraform 0.12 ([#6](https://github.com/terraform-aws-modules/terraform-aws-sqs/issues/6))
 
 
 <a name="v1.2.1"></a>
