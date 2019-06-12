@@ -6,11 +6,18 @@ These types of resources are supported:
 
 * [SQS queue](https://www.terraform.io/docs/providers/aws/r/sqs_queue.html) with optional [server-side encryption using KMS](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-server-side-encryption.html)
 
+## Terraform versions
+
+Terraform 0.12. Pin module version to `~> v2.0`. Submit pull-requests to `master` branch.
+
+Terraform 0.11. Pin module version to `~> v1.0`. Submit pull-requests to `terraform011` branch.
+
 ## Usage
 
 ```hcl
 module "user_queue" {
-  source = "terraform-aws-modules/sqs/aws"
+  source  = "terraform-aws-modules/sqs/aws"
+  version = "~> 2.0"
 
   name = "user"
 
@@ -23,8 +30,7 @@ module "user_queue" {
 
 ## Examples
 
-* [Simple SQS queue](https://github.com/terraform-aws-modules/terraform-aws-sqs/tree/master/examples/simple-sqs)
-* [SQS queue with KMS encryption](https://github.com/terraform-aws-modules/terraform-aws-sqs/tree/master/examples/sqs-with-kms)
+* [SQS queues with server-side encryption (SSE) using KMS and without SSE](https://github.com/terraform-aws-modules/terraform-aws-sqs/tree/master/examples/complete-sqs)
 
 ## Conditional creation
 
@@ -33,7 +39,8 @@ Sometimes you need to have a way to create SQS queue conditionally but Terraform
 ```hcl
 # This SQS queue will not be created
 module "user_queue" {
-  source = "terraform-aws-modules/sqs/aws"
+  source  = "terraform-aws-modules/sqs/aws"
+  version = "~> 2.0"
 
   create = false
   # ... omitted
@@ -58,7 +65,6 @@ module "user_queue" {
 | policy | The JSON policy for the SQS queue | string | `` | no |
 | receive_wait_time_seconds | The time for which a ReceiveMessage call will wait for a message to arrive (long polling) before returning. An integer from 0 to 20 (seconds) | string | `0` | no |
 | redrive_policy | The JSON policy to set up the Dead Letter Queue, see AWS docs. Note: when specifying maxReceiveCount, you must specify it as an integer (5), and not a string ("5") | string | `` | no |
-| sqs_queue_with_kms | Whether to create SQS queue with KMS encryption | string | `false` | no |
 | tags | A mapping of tags to assign to all resources | string | `<map>` | no |
 | visibility_timeout_seconds | The visibility timeout for the queue. An integer from 0 to 43200 (12 hours) | string | `30` | no |
 
