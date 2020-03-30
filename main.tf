@@ -23,11 +23,6 @@ resource "aws_sqs_queue" "this" {
 data "aws_arn" "this" {
   count = var.create ? 1 : 0
 
-  arn = element(
-    concat(
-      aws_sqs_queue.this.*.arn,
-      [""],
-    ),
-    0,
-  )
+  arn = aws_sqs_queue.this[0].arn
+
 }
