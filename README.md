@@ -72,6 +72,7 @@ module "user_queue" {
 
 | Name | Description |
 |------|-------------|
+| this_sqs_queue_name | The name of the SQS queue |
 | this_sqs_queue_arn | The ARN of the SQS queue |
 | this_sqs_queue_id | The URL for the created Amazon SQS queue |
 
