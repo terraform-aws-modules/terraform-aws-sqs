@@ -19,3 +19,15 @@ resource "aws_sqs_queue" "this" {
 
   tags = var.tags
 }
+
+data "aws_arn" "this" {
+  count = var.create ? 1 : 0
+
+  arn = element(
+    concat(
+      aws_sqs_queue.this.*.arn,
+      [""],
+    ),
+    0,
+  )
+}
