@@ -1,6 +1,16 @@
+# Change Log
+
+All notable changes to this project will be documented in this file.
+
 <a name="unreleased"></a>
 ## [Unreleased]
 
+
+
+<a name="v2.1.0"></a>
+## [v2.1.0] - 2020-03-30
+
+- feat: Add SQS name to the outputs ([#17](https://github.com/terraform-aws-modules/terraform-aws-sqs/issues/17))
 
 
 <a name="v2.0.0"></a>
@@ -18,7 +28,6 @@
 <a name="v1.2.0"></a>
 ## [v1.2.0] - 2018-06-04
 
-- Merge pull request [#3](https://github.com/terraform-aws-modules/terraform-aws-sqs/issues/3) from terraform-aws-modules/fix-kms-queues
 - Fix usage of KMS key in count
 
 
@@ -37,22 +46,23 @@
 - Added sqs module
 
 
-<a name="v0.0.2"></a>
-## [v0.0.2] - 2017-09-26
-
-
-
 <a name="v0.0.1"></a>
-## v0.0.1 - 2017-09-26
+## [v0.0.1] - 2017-09-26
+
+
+
+<a name="v0.0.2"></a>
+## v0.0.2 - 2017-09-26
 
 - Initial commit
 - Initial commit
 
 
-[Unreleased]: https://github.com/terraform-aws-modules/terraform-aws-sqs/compare/v2.0.0...HEAD
+[Unreleased]: https://github.com/terraform-aws-modules/terraform-aws-sqs/compare/v2.1.0...HEAD
+[v2.1.0]: https://github.com/terraform-aws-modules/terraform-aws-sqs/compare/v2.0.0...v2.1.0
 [v2.0.0]: https://github.com/terraform-aws-modules/terraform-aws-sqs/compare/v1.2.1...v2.0.0
 [v1.2.1]: https://github.com/terraform-aws-modules/terraform-aws-sqs/compare/v1.2.0...v1.2.1
 [v1.2.0]: https://github.com/terraform-aws-modules/terraform-aws-sqs/compare/v1.1.0...v1.2.0
 [v1.1.0]: https://github.com/terraform-aws-modules/terraform-aws-sqs/compare/v1.0.0...v1.1.0
-[v1.0.0]: https://github.com/terraform-aws-modules/terraform-aws-sqs/compare/v0.0.2...v1.0.0
-[v0.0.2]: https://github.com/terraform-aws-modules/terraform-aws-sqs/compare/v0.0.1...v0.0.2
+[v1.0.0]: https://github.com/terraform-aws-modules/terraform-aws-sqs/compare/v0.0.1...v1.0.0
+[v0.0.1]: https://github.com/terraform-aws-modules/terraform-aws-sqs/compare/v0.0.2...v0.0.1
