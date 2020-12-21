@@ -2,9 +2,12 @@ name: Pre-Commit
 
 on:
   pull_request:
+  push:
+    branches:
+      - master
 
 jobs:
-  baseVersionExtract:
+  getBaseVersion:
     name: Get min/max versions
     runs-on: ubuntu-latest
 
@@ -22,13 +25,13 @@ jobs:
   preCommit:
     name: Pre-commit check
     runs-on: ubuntu-latest
-    needs: baseVersionExtract
+    needs: getBaseVersion
     strategy:
       fail-fast: false
       matrix:
         version:
-          - ${{ needs.baseVersionExtract.outputs.minVersion }}
-          - ${{ needs.baseVersionExtract.outputs.maxVersion }}
+          - ${{ needs.getBaseVersion.outputs.minVersion }}
+          - ${{ needs.getBaseVersion.outputs.maxVersion }}
 
     steps:
       - name: Checkout
@@ -50,43 +53,3 @@ jobs:
 
       - name: Execute pre-commit
         run: pre-commit run --color=always --show-diff-on-failure --all-files
-
-  validateExamples:
-    name: Validate examples
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        directory: [examples/complete]
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Terraform min/max versions
-        id: minMax
-        uses: clowdhaus/terraform-min-max@v1.0.1
-        with:
-          directory: ${{ matrix.directory }}
-
-      - name: Install Terraform MIN v${{ steps.minMax.outputs.minVersion }}
-        uses: hashicorp/setup-terraform@v1
-        with:
-          terraform_version: ${{ steps.minMax.outputs.minVersion }}
-
-      - name: Validate MIN v${{ steps.minMax.outputs.minVersion }}
-        run: |
-          cd ${{ matrix.directory }}
-          terraform init -backend=false
-          terraform validate
-
-      - name: Install Terraform MAX v${{ steps.minMax.outputs.maxVersion }}
-        uses: hashicorp/setup-terraform@v1
-        with:
-          terraform_version: ${{ steps.minMax.outputs.maxVersion }}
-
-      - name: Validate MAX v${{ steps.minMax.outputs.maxVersion }}
-        run: |
-          cd ${{ matrix.directory }}
-          terraform init -backend=false
-          terraform validate
