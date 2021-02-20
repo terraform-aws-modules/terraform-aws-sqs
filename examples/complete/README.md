@@ -28,6 +28,19 @@ Note that this example may create resources which cost money. Run `terraform des
 |------|---------|
 | aws | >= 2.30 |
 
+## Modules
+
+| Name | Source | Version |
+|------|--------|---------|
+| users_encrypted | ../../ |  |
+| users_unencrypted | ../../ |  |
+
+## Resources
+
+| Name |
+|------|
+| [aws_kms_key](https://registry.terraform.io/providers/hashicorp/aws/2.30/docs/resources/kms_key) |
+
 ## Inputs
 
 No input.
@@ -40,5 +53,4 @@ No input.
 | users\_encrypted\_this\_sqs\_queue\_id | The URL for the created Amazon SQS queue |
 | users\_unencrypted\_this\_sqs\_queue\_arn | The ARN of the SQS queue |
 | users\_unencrypted\_this\_sqs\_queue\_id | The URL for the created Amazon SQS queue |
-
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

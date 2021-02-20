@@ -61,6 +61,17 @@ module "user_queue" {
 |------|---------|
 | aws | >= 2.30 |
 
+## Modules
+
+No Modules.
+
+## Resources
+
+| Name |
+|------|
+| [aws_arn](https://registry.terraform.io/providers/hashicorp/aws/2.30/docs/data-sources/arn) |
+| [aws_sqs_queue](https://registry.terraform.io/providers/hashicorp/aws/2.30/docs/resources/sqs_queue) |
+
 ## Inputs
 
 | Name | Description | Type | Default | Required |
@@ -88,7 +99,6 @@ module "user_queue" {
 | this\_sqs\_queue\_arn | The ARN of the SQS queue |
 | this\_sqs\_queue\_id | The URL for the created Amazon SQS queue |
 | this\_sqs\_queue\_name | The name of the SQS queue |
-
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## Authors
