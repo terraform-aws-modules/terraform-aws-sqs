@@ -2,9 +2,12 @@ name: Pre-Commit
 
 on:
   pull_request:
+  push:
+    branches:
+      - master
 
 jobs:
-  versionExtract:
+  getBaseVersion:
     name: Get min/max versions
     runs-on: ubuntu-latest
 
@@ -19,17 +22,16 @@ jobs:
       minVersion: ${{ steps.minMax.outputs.minVersion }}
       maxVersion: ${{ steps.minMax.outputs.maxVersion }}
 
-  versionEvaluate:
-    name: Evaluate Terraform versions
+  preCommit:
+    name: Pre-commit check
     runs-on: ubuntu-latest
-    needs: versionExtract
+    needs: getBaseVersion
     strategy:
       fail-fast: false
       matrix:
         version:
-          - ${{ needs.versionExtract.outputs.minVersion }}
-          - ${{ needs.versionExtract.outputs.maxVersion }}
-        directory: [examples/complete, examples/simple]
+          - ${{ needs.getBaseVersion.outputs.minVersion }}
+          - ${{ needs.getBaseVersion.outputs.maxVersion }}
 
     steps:
       - name: Checkout
@@ -48,5 +50,6 @@ jobs:
           pip install pre-commit
           curl -L "$(curl -s https://api.github.com/repos/terraform-docs/terraform-docs/releases/latest | grep -o -E "https://.+?-linux-amd64" | head -n1)" > terraform-docs && chmod +x terraform-docs && sudo mv terraform-docs /usr/bin/
           curl -L "$(curl -s https://api.github.com/repos/terraform-linters/tflint/releases/latest | grep -o -E "https://.+?_linux_amd64.zip")" > tflint.zip && unzip tflint.zip && rm tflint.zip && sudo mv tflint /usr/bin/
+
       - name: Execute pre-commit
         run: pre-commit run --color=always --show-diff-on-failure --all-files
