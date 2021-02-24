@@ -69,8 +69,8 @@ No Modules.
 
 | Name |
 |------|
-| [aws_arn](https://registry.terraform.io/providers/hashicorp/aws/2.30/docs/data-sources/arn) |
-| [aws_sqs_queue](https://registry.terraform.io/providers/hashicorp/aws/2.30/docs/resources/sqs_queue) |
+| [aws_arn](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/arn) |
+| [aws_sqs_queue](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sqs_queue) |
 
 ## Inputs
 
