@@ -39,7 +39,7 @@ Note that this example may create resources which cost money. Run `terraform des
 
 | Name |
 |------|
-| [aws_kms_key](https://registry.terraform.io/providers/hashicorp/aws/2.30/docs/resources/kms_key) |
+| [aws_kms_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kms_key) |
 
 ## Inputs
 
