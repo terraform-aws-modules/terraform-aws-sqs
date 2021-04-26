@@ -49,8 +49,8 @@ No inputs.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_users_encrypted_this_sqs_queue_arn"></a> [users\_encrypted\_this\_sqs\_queue\_arn](#output\_users\_encrypted\_this\_sqs\_queue\_arn) | The ARN of the SQS queue |
-| <a name="output_users_encrypted_this_sqs_queue_id"></a> [users\_encrypted\_this\_sqs\_queue\_id](#output\_users\_encrypted\_this\_sqs\_queue\_id) | The URL for the created Amazon SQS queue |
-| <a name="output_users_unencrypted_this_sqs_queue_arn"></a> [users\_unencrypted\_this\_sqs\_queue\_arn](#output\_users\_unencrypted\_this\_sqs\_queue\_arn) | The ARN of the SQS queue |
-| <a name="output_users_unencrypted_this_sqs_queue_id"></a> [users\_unencrypted\_this\_sqs\_queue\_id](#output\_users\_unencrypted\_this\_sqs\_queue\_id) | The URL for the created Amazon SQS queue |
+| <a name="output_users_encrypted_sqs_queue_arn"></a> [users\_encrypted\_sqs\_queue\_arn](#output\_users\_encrypted\_sqs\_queue\_arn) | The ARN of the SQS queue |
+| <a name="output_users_encrypted_sqs_queue_id"></a> [users\_encrypted\_sqs\_queue\_id](#output\_users\_encrypted\_sqs\_queue\_id) | The URL for the created Amazon SQS queue |
+| <a name="output_users_unencrypted_sqs_queue_arn"></a> [users\_unencrypted\_sqs\_queue\_arn](#output\_users\_unencrypted\_sqs\_queue\_arn) | The ARN of the SQS queue |
+| <a name="output_users_unencrypted_sqs_queue_id"></a> [users\_unencrypted\_sqs\_queue\_id](#output\_users\_unencrypted\_sqs\_queue\_id) | The URL for the created Amazon SQS queue |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
