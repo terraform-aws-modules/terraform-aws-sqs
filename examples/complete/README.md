@@ -15,5 +15,39 @@ $ terraform apply
 Note that this example may create resources which cost money. Run `terraform destroy` when you don't need these resources.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+## Requirements
 
+No requirements.
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| <a name="provider_aws"></a> [aws](#provider\_aws) | n/a |
+
+## Modules
+
+| Name | Source | Version |
+|------|--------|---------|
+| <a name="module_users_encrypted"></a> [users\_encrypted](#module\_users\_encrypted) | ../../ |  |
+| <a name="module_users_unencrypted"></a> [users\_unencrypted](#module\_users\_unencrypted) | ../../ |  |
+
+## Resources
+
+| Name | Type |
+|------|------|
+| [aws_kms_key.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kms_key) | resource |
+
+## Inputs
+
+No inputs.
+
+## Outputs
+
+| Name | Description |
+|------|-------------|
+| <a name="output_users_encrypted_sqs_queue_arn"></a> [users\_encrypted\_sqs\_queue\_arn](#output\_users\_encrypted\_sqs\_queue\_arn) | The ARN of the SQS queue |
+| <a name="output_users_encrypted_sqs_queue_id"></a> [users\_encrypted\_sqs\_queue\_id](#output\_users\_encrypted\_sqs\_queue\_id) | The URL for the created Amazon SQS queue |
+| <a name="output_users_unencrypted_sqs_queue_arn"></a> [users\_unencrypted\_sqs\_queue\_arn](#output\_users\_unencrypted\_sqs\_queue\_arn) | The ARN of the SQS queue |
+| <a name="output_users_unencrypted_sqs_queue_id"></a> [users\_unencrypted\_sqs\_queue\_id](#output\_users\_unencrypted\_sqs\_queue\_id) | The URL for the created Amazon SQS queue |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
