@@ -96,9 +96,9 @@ No modules.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_this_sqs_queue_arn"></a> [this\_sqs\_queue\_arn](#output\_this\_sqs\_queue\_arn) | The ARN of the SQS queue |
-| <a name="output_this_sqs_queue_id"></a> [this\_sqs\_queue\_id](#output\_this\_sqs\_queue\_id) | The URL for the created Amazon SQS queue |
-| <a name="output_this_sqs_queue_name"></a> [this\_sqs\_queue\_name](#output\_this\_sqs\_queue\_name) | The name of the SQS queue |
+| <a name="output_sqs_queue_arn"></a> [sqs\_queue\_arn](#output\_sqs\_queue\_arn) | The ARN of the SQS queue |
+| <a name="output_sqs_queue_id"></a> [sqs\_queue\_id](#output\_sqs\_queue\_id) | The URL for the created Amazon SQS queue |
+| <a name="output_sqs_queue_name"></a> [sqs\_queue\_name](#output\_sqs\_queue\_name) | The name of the SQS queue |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## Authors
