@@ -2,11 +2,22 @@
 
 Terraform module which creates SQS resources on AWS.
 
+These types of resources are supported:
+
+* [SQS queue](https://www.terraform.io/docs/providers/aws/r/sqs_queue.html) with optional [server-side encryption using KMS](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-server-side-encryption.html)
+
+## Terraform versions
+
+Terraform 0.12. Pin module version to `~> v2.0`. Submit pull-requests to `master` branch.
+
+Terraform 0.11. Pin module version to `~> v1.0`. Submit pull-requests to `terraform011` branch.
+
 ## Usage
 
 ```hcl
 module "user_queue" {
   source  = "terraform-aws-modules/sqs/aws"
+  version = "~> 2.0"
 
   name = "user"
 
@@ -29,6 +40,7 @@ Sometimes you need to have a way to create SQS queue conditionally but Terraform
 # This SQS queue will not be created
 module "user_queue" {
   source  = "terraform-aws-modules/sqs/aws"
+  version = "~> 2.0"
 
   create = false
   # ... omitted
@@ -40,14 +52,14 @@ module "user_queue" {
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.12.26 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 2.64 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.12.7 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 2.30 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 2.64 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 2.30 |
 
 ## Modules
 

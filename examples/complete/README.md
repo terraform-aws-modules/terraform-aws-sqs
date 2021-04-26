@@ -17,13 +17,16 @@ Note that this example may create resources which cost money. Run `terraform des
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
-No requirements.
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.12.7 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 2.30 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | n/a |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 2.30 |
 
 ## Modules
 
@@ -46,8 +49,8 @@ No inputs.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_users_encrypted_sqs_queue_arn"></a> [users\_encrypted\_sqs\_queue\_arn](#output\_users\_encrypted\_sqs\_queue\_arn) | The ARN of the SQS queue |
-| <a name="output_users_encrypted_sqs_queue_id"></a> [users\_encrypted\_sqs\_queue\_id](#output\_users\_encrypted\_sqs\_queue\_id) | The URL for the created Amazon SQS queue |
-| <a name="output_users_unencrypted_sqs_queue_arn"></a> [users\_unencrypted\_sqs\_queue\_arn](#output\_users\_unencrypted\_sqs\_queue\_arn) | The ARN of the SQS queue |
-| <a name="output_users_unencrypted_sqs_queue_id"></a> [users\_unencrypted\_sqs\_queue\_id](#output\_users\_unencrypted\_sqs\_queue\_id) | The URL for the created Amazon SQS queue |
+| <a name="output_users_encrypted_this_sqs_queue_arn"></a> [users\_encrypted\_this\_sqs\_queue\_arn](#output\_users\_encrypted\_this\_sqs\_queue\_arn) | The ARN of the SQS queue |
+| <a name="output_users_encrypted_this_sqs_queue_id"></a> [users\_encrypted\_this\_sqs\_queue\_id](#output\_users\_encrypted\_this\_sqs\_queue\_id) | The URL for the created Amazon SQS queue |
+| <a name="output_users_unencrypted_this_sqs_queue_arn"></a> [users\_unencrypted\_this\_sqs\_queue\_arn](#output\_users\_unencrypted\_this\_sqs\_queue\_arn) | The ARN of the SQS queue |
+| <a name="output_users_unencrypted_this_sqs_queue_id"></a> [users\_unencrypted\_this\_sqs\_queue\_id](#output\_users\_unencrypted\_this\_sqs\_queue\_id) | The URL for the created Amazon SQS queue |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
