@@ -7,6 +7,14 @@ All notable changes to this project will be documented in this file.
 
 
 
+<a name="v3.1.0"></a>
+## [v3.1.0] - 2021-05-26
+
+- fix: Extend example with custom policy ([#30](https://github.com/terraform-aws-modules/terraform-aws-sqs/issues/30))
+- chore: Fix link to complete example in docs ([#29](https://github.com/terraform-aws-modules/terraform-aws-sqs/issues/29))
+- chore: update CI/CD to use stable `terraform-docs` release artifact and discoverable Apache2.0 license ([#28](https://github.com/terraform-aws-modules/terraform-aws-sqs/issues/28))
+
+
 <a name="v3.0.0"></a>
 ## [v3.0.0] - 2021-04-26
 
@@ -23,18 +31,6 @@ All notable changes to this project will be documented in this file.
 ## [v2.1.0] - 2020-03-30
 
 - feat: Add SQS name to the outputs ([#17](https://github.com/terraform-aws-modules/terraform-aws-sqs/issues/17))
-- Merge pull request [#16](https://github.com/terraform-aws-modules/terraform-aws-sqs/issues/16) from terraform-aws-modules/terraform-provider-githubfile-1584635419880632000
-- [ci skip] Create ".chglog/CHANGELOG.tpl.md".
-- Merge pull request [#15](https://github.com/terraform-aws-modules/terraform-aws-sqs/issues/15) from terraform-aws-modules/terraform-provider-githubfile-1584537511255789000
-- [ci skip] Create ".editorconfig".
-- Merge pull request [#12](https://github.com/terraform-aws-modules/terraform-aws-sqs/issues/12) from terraform-aws-modules/terraform-provider-githubfile-1584537479159204000
-- Merge pull request [#14](https://github.com/terraform-aws-modules/terraform-aws-sqs/issues/14) from terraform-aws-modules/terraform-provider-githubfile-1584537479159135000
-- Merge pull request [#10](https://github.com/terraform-aws-modules/terraform-aws-sqs/issues/10) from terraform-aws-modules/terraform-provider-githubfile-1584537479159136000
-- Merge pull request [#11](https://github.com/terraform-aws-modules/terraform-aws-sqs/issues/11) from terraform-aws-modules/terraform-provider-githubfile-1584537479160822000
-- [ci skip] Create ".gitignore".
-- [ci skip] Create "LICENSE".
-- [ci skip] Create ".pre-commit-config.yaml".
-- [ci skip] Create "Makefile".
 
 
 <a name="v2.0.0"></a>
@@ -52,7 +48,6 @@ All notable changes to this project will be documented in this file.
 <a name="v1.2.0"></a>
 ## [v1.2.0] - 2018-06-04
 
-- Merge pull request [#3](https://github.com/terraform-aws-modules/terraform-aws-sqs/issues/3) from terraform-aws-modules/fix-kms-queues
 - Fix usage of KMS key in count
 
 
@@ -83,7 +78,8 @@ All notable changes to this project will be documented in this file.
 - Initial commit
 
 
-[Unreleased]: https://github.com/terraform-aws-modules/terraform-aws-sqs/compare/v3.0.0...HEAD
+[Unreleased]: https://github.com/terraform-aws-modules/terraform-aws-sqs/compare/v3.1.0...HEAD
+[v3.1.0]: https://github.com/terraform-aws-modules/terraform-aws-sqs/compare/v3.0.0...v3.1.0
 [v3.0.0]: https://github.com/terraform-aws-modules/terraform-aws-sqs/compare/v2.1.0...v3.0.0
 [v2.1.0]: https://github.com/terraform-aws-modules/terraform-aws-sqs/compare/v2.0.0...v2.1.0
 [v2.0.0]: https://github.com/terraform-aws-modules/terraform-aws-sqs/compare/v1.2.1...v2.0.0
