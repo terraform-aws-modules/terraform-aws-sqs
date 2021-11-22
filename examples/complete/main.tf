@@ -2,6 +2,8 @@ provider "aws" {
   region = "eu-west-1"
 }
 
+data "aws_caller_identity" "current" {}
+
 resource "aws_kms_key" "this" {}
 
 module "users_unencrypted" {
@@ -37,7 +39,7 @@ resource "aws_sqs_queue_policy" "users_unencrypted_policy" {
       {
         "Effect": "Allow",
         "Principal": {
-          "AWS": "arn:aws:iam::myaccount:root"
+          "AWS": "arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"
         },
         "Action": [
           "SQS:SendMessage",
