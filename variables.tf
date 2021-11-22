@@ -82,6 +82,18 @@ variable "kms_data_key_reuse_period_seconds" {
   default     = 300
 }
 
+variable "deduplication_scope" {
+  description = "Specifies whether message deduplication occurs at the message group or queue level"
+  type        = string
+  default     = null
+}
+
+variable "fifo_throughput_limit" {
+  description = "Specifies whether the FIFO queue throughput quota applies to the entire queue or per message group"
+  type        = string
+  default     = null
+}
+
 variable "tags" {
   description = "A mapping of tags to assign to all resources"
   type        = map(string)
