@@ -1,3 +1,14 @@
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+## [3.2.1](https://github.com/terraform-aws-modules/terraform-aws-sqs/compare/v3.2.0...v3.2.1) (2021-11-23)
+
+
+### Bug Fixes
+
+* update CI/CD process to enable auto-release worfklow ([#33](https://github.com/terraform-aws-modules/terraform-aws-sqs/issues/33)) ([4259563](https://github.com/terraform-aws-modules/terraform-aws-sqs/commit/4259563e7e5b498bf4f8106da0bec1771784b3f0))
+
 <a name="v3.2.0"></a>
 ## [v3.2.0] - 2021-11-22
 
