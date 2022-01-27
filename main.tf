@@ -11,6 +11,7 @@ resource "aws_sqs_queue" "this" {
   receive_wait_time_seconds   = var.receive_wait_time_seconds
   policy                      = var.policy
   redrive_policy              = var.redrive_policy
+  redrive_allow_policy        = var.redrive_allow_policy
   fifo_queue                  = var.fifo_queue
   content_based_deduplication = var.content_based_deduplication
   deduplication_scope         = var.deduplication_scope
