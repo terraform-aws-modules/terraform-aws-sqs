@@ -28,6 +28,22 @@ module "users_encrypted" {
   }
 }
 
+
+module "sqs_dlq_allow_redrive_policy" {
+  source = "../../"
+
+  name_prefix = "sqs-dlq-allow-redrive-policy-example"
+
+  redrive_allow_policy = jsonencode({
+    redrivePermission = "byQueue",
+    sourceQueueArns   = [module.users_encrypted.sqs_queue_arn]
+  })
+
+  tags = {
+    Secure = "true"
+  }
+}
+
 resource "aws_sqs_queue_policy" "users_unencrypted_policy" {
   queue_url = module.users_unencrypted.sqs_queue_id
 

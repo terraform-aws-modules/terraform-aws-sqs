@@ -58,6 +58,12 @@ variable "redrive_policy" {
   default     = ""
 }
 
+variable "redrive_allow_policy" {
+  description = "The JSON policy to set up the Dead Letter Queue redrive permission, see AWS docs."
+  type        = string
+  default     = ""
+}
+
 variable "fifo_queue" {
   description = "Boolean designating a FIFO queue"
   type        = bool
