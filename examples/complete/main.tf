@@ -67,5 +67,3 @@ resource "aws_sqs_queue_policy" "users_unencrypted_policy" {
   }
   EOF
 }
-
-
