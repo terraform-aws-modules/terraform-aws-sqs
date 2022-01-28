@@ -36,7 +36,7 @@ module "sqs_dlq_allow_redrive_policy" {
 
   redrive_allow_policy = jsonencode({
     redrivePermission = "byQueue",
-    sourceQueueArns   = ["${module.users_encrypted.sqs_queue_arn}"]
+    sourceQueueArns   = [module.users_encrypted.sqs_queue_arn]
   })
 
   tags = {
