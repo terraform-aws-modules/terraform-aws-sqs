@@ -60,7 +60,7 @@ variable "redrive_policy" {
 
 variable "redrive_allow_policy" {
   description = "The JSON policy to set up the Dead Letter Queue redrive permission, see AWS docs."
-  type        = object
+  type        = map
   default     = {}
 }
 
