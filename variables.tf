@@ -82,6 +82,12 @@ variable "kms_master_key_id" {
   default     = null
 }
 
+variable "sqs_managed_sse_enabled" {
+  description = "Boolean to enable server-side encryption (SSE) of message content with SQS-owned encryption keys"
+  type        = bool
+  default     = false
+}
+
 variable "kms_data_key_reuse_period_seconds" {
   description = "The length of time, in seconds, for which Amazon SQS can reuse a data key to encrypt or decrypt messages before calling AWS KMS again. An integer representing seconds, between 60 seconds (1 minute) and 86,400 seconds (24 hours)"
   type        = number
