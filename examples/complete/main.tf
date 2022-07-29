@@ -27,6 +27,18 @@ module "users_encrypted" {
     Secure = "true"
   }
 }
+  
+module "users_encrypted_with_sse" {
+  source = "../../"
+
+  name_prefix = "users-encrypted-sse-"
+
+  sqs_managed_sse_enabled = true
+
+  tags = {
+    Secure = "true"
+  }
+}
 
 
 module "sqs_dlq_allow_redrive_policy" {
