@@ -27,7 +27,7 @@ module "users_encrypted" {
     Secure = "true"
   }
 }
-  
+
 module "users_encrypted_with_sse" {
   source = "../../"
 
