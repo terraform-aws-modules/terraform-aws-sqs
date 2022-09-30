@@ -34,6 +34,7 @@ Note that this example may create resources which cost money. Run `terraform des
 |------|--------|---------|
 | <a name="module_sqs_dlq_allow_redrive_policy"></a> [sqs\_dlq\_allow\_redrive\_policy](#module\_sqs\_dlq\_allow\_redrive\_policy) | ../../ | n/a |
 | <a name="module_users_encrypted"></a> [users\_encrypted](#module\_users\_encrypted) | ../../ | n/a |
+| <a name="module_users_encrypted_with_sse"></a> [users\_encrypted\_with\_sse](#module\_users\_encrypted\_with\_sse) | ../../ | n/a |
 | <a name="module_users_unencrypted"></a> [users\_unencrypted](#module\_users\_unencrypted) | ../../ | n/a |
 
 ## Resources
