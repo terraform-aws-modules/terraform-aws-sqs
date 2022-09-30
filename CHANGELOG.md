@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.4.0](https://github.com/terraform-aws-modules/terraform-aws-sqs/compare/v3.3.0...v3.4.0) (2022-09-30)
+
+
+### Features
+
+* Adds sqs_managed_sse_enabled ([#39](https://github.com/terraform-aws-modules/terraform-aws-sqs/issues/39)) ([b1aa7e4](https://github.com/terraform-aws-modules/terraform-aws-sqs/commit/b1aa7e4aa8d79253e60949c3105cfa580daf450a))
+
 ## [3.3.0](https://github.com/terraform-aws-modules/terraform-aws-sqs/compare/v3.2.1...v3.3.0) (2022-01-28)
 
 
