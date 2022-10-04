@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+### [3.4.1](https://github.com/terraform-aws-modules/terraform-aws-sqs/compare/v3.4.0...v3.4.1) (2022-10-04)
+
+
+### Bug Fixes
+
+* Add conditional null for sqs_managed_sse_enabled ([#41](https://github.com/terraform-aws-modules/terraform-aws-sqs/issues/41)) ([da544b9](https://github.com/terraform-aws-modules/terraform-aws-sqs/commit/da544b9b4a16391f5a39509ba725fe63219fe0ce))
+
 ## [3.4.0](https://github.com/terraform-aws-modules/terraform-aws-sqs/compare/v3.3.0...v3.4.0) (2022-09-30)
 
 
