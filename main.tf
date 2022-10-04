@@ -17,7 +17,7 @@ resource "aws_sqs_queue" "this" {
   deduplication_scope         = var.deduplication_scope
   fifo_throughput_limit       = var.fifo_throughput_limit
 
-  sqs_managed_sse_enabled           = var.sqs_managed_sse_enabled
+  sqs_managed_sse_enabled           = var.sqs_managed_sse_enabled ? var.sqs_managed_sse_enabled : null
   kms_master_key_id                 = var.sqs_managed_sse_enabled ? null : var.kms_master_key_id
   kms_data_key_reuse_period_seconds = var.kms_data_key_reuse_period_seconds
 
