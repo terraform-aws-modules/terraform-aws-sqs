@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.5.0](https://github.com/terraform-aws-modules/terraform-aws-sqs/compare/v3.4.2...v3.5.0) (2022-11-08)
+
+
+### Features
+
+* Added wrapper module ([#43](https://github.com/terraform-aws-modules/terraform-aws-sqs/issues/43)) ([1b3915a](https://github.com/terraform-aws-modules/terraform-aws-sqs/commit/1b3915abeae4ea1455130b1c6ab21f77f3544981))
+
 ### [3.4.2](https://github.com/terraform-aws-modules/terraform-aws-sqs/compare/v3.4.1...v3.4.2) (2022-10-27)
 
 
