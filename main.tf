@@ -19,7 +19,7 @@ resource "aws_sqs_queue" "this" {
 
   sqs_managed_sse_enabled           = var.kms_master_key_id == null ? var.sqs_managed_sse_enabled : null
   kms_master_key_id                 = var.kms_master_key_id != null ? var.kms_master_key_id : null
-  kms_data_key_reuse_period_seconds = var.kms_data_key_reuse_period_seconds
+  kms_data_key_reuse_period_seconds = var.kms_master_key_id != null ? var.kms_data_key_reuse_period_seconds : null
 
   tags = var.tags
 }
