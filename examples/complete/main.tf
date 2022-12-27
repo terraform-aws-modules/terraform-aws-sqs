@@ -20,7 +20,7 @@ locals {
 module "default_sqs" {
   source = "../../"
 
-  name = local.name
+  name = "${local.name}-default"
 
   tags = local.tags
 }
@@ -29,13 +29,21 @@ module "fifo_sqs" {
   source = "../../"
 
   # `.fifo` is automatically appended to the name
+  # This also means that `use_name_prefix` cannot be used on FIFO queues
   name       = local.name
   fifo_queue = true
 
   tags = local.tags
 }
 
-# DLQ
+module "unencrypted_sqs" {
+  source = "../../"
+
+  name                    = "${local.name}-unencrypted"
+  sqs_managed_sse_enabled = false
+
+  tags = local.tags
+}
 
 module "cmk_encrypted_sqs" {
   source = "../../"
@@ -56,15 +64,29 @@ module "sse_encrypted_sqs" {
   tags = local.tags
 }
 
+module "sqs_with_dlq" {
+  source = "../../"
+
+  name = "${local.name}-sqs-with-dlq"
+
+  create_dlq = true
+  redrive_policy = {
+    # default is 5 for this module
+    maxReceiveCount = 10
+  }
+
+  tags = local.tags
+}
+
 module "dlq_redrive_sqs" {
   source = "../../"
 
   name = "${local.name}-sqs-dlq-redrive"
 
-  redrive_allow_policy = jsonencode({
+  redrive_allow_policy = {
     redrivePermission = "byQueue",
     sourceQueueArns   = [module.sse_encrypted_sqs.queue_arn]
-  })
+  }
 
   tags = local.tags
 }

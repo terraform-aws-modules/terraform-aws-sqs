@@ -88,14 +88,14 @@ variable "receive_wait_time_seconds" {
 
 variable "redrive_allow_policy" {
   description = "The JSON policy to set up the Dead Letter Queue redrive permission, see AWS docs."
-  type        = string
-  default     = null
+  type        = any
+  default     = {}
 }
 
 variable "redrive_policy" {
   description = "The JSON policy to set up the Dead Letter Queue, see AWS docs. Note: when specifying maxReceiveCount, you must specify it as an integer (5), and not a string (\"5\")"
-  type        = string
-  default     = null
+  type        = any
+  default     = {}
 }
 
 variable "sqs_managed_sse_enabled" {
@@ -112,6 +112,94 @@ variable "visibility_timeout_seconds" {
 
 variable "tags" {
   description = "A mapping of tags to assign to all resources"
+  type        = map(string)
+  default     = {}
+}
+
+################################################################################
+# Dead Letter Queue
+################################################################################
+
+variable "create_dlq" {
+  description = "Determines whether to create SQS dead letter queue"
+  type        = bool
+  default     = false
+}
+
+variable "dlq_content_based_deduplication" {
+  description = "Enables content-based deduplication for FIFO queues"
+  type        = bool
+  default     = null
+}
+
+variable "dlq_deduplication_scope" {
+  description = "Specifies whether message deduplication occurs at the message group or queue level"
+  type        = string
+  default     = null
+}
+
+variable "dlq_delay_seconds" {
+  description = "The time in seconds that the delivery of all messages in the queue will be delayed. An integer from 0 to 900 (15 minutes)"
+  type        = number
+  default     = null
+}
+
+variable "dlq_kms_data_key_reuse_period_seconds" {
+  description = "The length of time, in seconds, for which Amazon SQS can reuse a data key to encrypt or decrypt messages before calling AWS KMS again. An integer representing seconds, between 60 seconds (1 minute) and 86,400 seconds (24 hours)"
+  type        = number
+  default     = null
+}
+
+variable "dlq_kms_master_key_id" {
+  description = "The ID of an AWS-managed customer master key (CMK) for Amazon SQS or a custom CMK"
+  type        = string
+  default     = null
+}
+
+variable "dlq_message_retention_seconds" {
+  description = "The number of seconds Amazon SQS retains a message. Integer representing seconds, from 60 (1 minute) to 1209600 (14 days)"
+  type        = number
+  default     = null
+}
+
+variable "dlq_name" {
+  description = "This is the human-readable name of the queue. If omitted, Terraform will assign a random name"
+  type        = string
+  default     = null
+}
+
+variable "dlq_policy" {
+  description = "The JSON policy for the SQS queue"
+  type        = string
+  default     = null
+}
+
+variable "dlq_receive_wait_time_seconds" {
+  description = "The time for which a ReceiveMessage call will wait for a message to arrive (long polling) before returning. An integer from 0 to 20 (seconds)"
+  type        = number
+  default     = null
+}
+
+variable "dlq_redrive_allow_policy" {
+  description = "The JSON policy to set up the Dead Letter Queue redrive permission, see AWS docs."
+  type        = any
+  default     = {}
+}
+
+variable "dlq_sqs_managed_sse_enabled" {
+  description = "Boolean to enable server-side encryption (SSE) of message content with SQS-owned encryption keys"
+  type        = bool
+  default     = true
+}
+
+variable "dlq_visibility_timeout_seconds" {
+  description = "The visibility timeout for the queue. An integer from 0 to 43200 (12 hours)"
+  type        = number
+  default     = null
+}
+
+variable "dlq_tags" {
+  description = "A mapping of additional tags to assign to the dead letter queue"
   type        = map(string)
   default     = {}
 }
