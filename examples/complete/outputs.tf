@@ -203,27 +203,6 @@ output "sse_encrypted_sqs_dlq_name" {
   value       = module.sse_encrypted_sqs.dead_letter_queue_name
 }
 
-# DLQ Re-drive
-output "dlq_redrive_sqs_queue_id" {
-  description = "The URL for the created Amazon SQS queue"
-  value       = module.dlq_redrive_sqs.queue_id
-}
-
-output "dlq_redrive_sqs_queue_arn" {
-  description = "The ARN of the SQS queue"
-  value       = module.dlq_redrive_sqs.queue_arn
-}
-
-output "dlq_redrive_sqs_queue_url" {
-  description = "Same as `queue_id`: The URL for the created Amazon SQS queue"
-  value       = module.dlq_redrive_sqs.queue_url
-}
-
-output "dlq_redrive_sqs_queue_name" {
-  description = "The name of the SQS queue"
-  value       = module.dlq_redrive_sqs.queue_name
-}
-
 # Disabled
 output "disabled_sqs_queue_id" {
   description = "The URL for the created Amazon SQS queue"

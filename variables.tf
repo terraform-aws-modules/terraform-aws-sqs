@@ -74,12 +74,6 @@ variable "use_name_prefix" {
   default     = false
 }
 
-variable "policy" {
-  description = "The JSON policy for the SQS queue"
-  type        = string
-  default     = null
-}
-
 variable "receive_wait_time_seconds" {
   description = "The time for which a ReceiveMessage call will wait for a message to arrive (long polling) before returning. An integer from 0 to 20 (seconds)"
   type        = number
@@ -113,6 +107,34 @@ variable "visibility_timeout_seconds" {
 variable "tags" {
   description = "A mapping of tags to assign to all resources"
   type        = map(string)
+  default     = {}
+}
+
+################################################################################
+# Queue Policy
+################################################################################
+
+variable "create_queue_policy" {
+  description = "Whether to create SQS queue policy"
+  type        = bool
+  default     = false
+}
+
+variable "source_queue_policy_documents" {
+  description = "List of IAM policy documents that are merged together into the exported document. Statements must have unique `sid`s"
+  type        = list(string)
+  default     = []
+}
+
+variable "override_queue_policy_documents" {
+  description = "List of IAM policy documents that are merged together into the exported document. In merging, statements with non-blank `sid`s will override statements with the same `sid`"
+  type        = list(string)
+  default     = []
+}
+
+variable "queue_policy_statements" {
+  description = "A map of IAM policy [statements](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document#statement) for custom permission usage"
+  type        = any
   default     = {}
 }
 
@@ -168,12 +190,6 @@ variable "dlq_name" {
   default     = null
 }
 
-variable "dlq_policy" {
-  description = "The JSON policy for the SQS queue"
-  type        = string
-  default     = null
-}
-
 variable "dlq_receive_wait_time_seconds" {
   description = "The time for which a ReceiveMessage call will wait for a message to arrive (long polling) before returning. An integer from 0 to 20 (seconds)"
   type        = number
@@ -201,5 +217,33 @@ variable "dlq_visibility_timeout_seconds" {
 variable "dlq_tags" {
   description = "A mapping of additional tags to assign to the dead letter queue"
   type        = map(string)
+  default     = {}
+}
+
+################################################################################
+# Dead Letter Queue Policy
+################################################################################
+
+variable "create_dlq_queue_policy" {
+  description = "Whether to create SQS queue policy"
+  type        = bool
+  default     = false
+}
+
+variable "source_dlq_queue_policy_documents" {
+  description = "List of IAM policy documents that are merged together into the exported document. Statements must have unique `sid`s"
+  type        = list(string)
+  default     = []
+}
+
+variable "override_dlq_queue_policy_documents" {
+  description = "List of IAM policy documents that are merged together into the exported document. In merging, statements with non-blank `sid`s will override statements with the same `sid`"
+  type        = list(string)
+  default     = []
+}
+
+variable "dlq_queue_policy_statements" {
+  description = "A map of IAM policy [statements](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document#statement) for custom permission usage"
+  type        = any
   default     = {}
 }

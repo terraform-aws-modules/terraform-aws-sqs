@@ -2,6 +2,8 @@ provider "aws" {
   region = local.region
 }
 
+data "aws_caller_identity" "current" {}
+
 locals {
   name   = "ex-${basename(path.cwd)}"
   region = "eu-west-1"
@@ -48,9 +50,11 @@ module "unencrypted_sqs" {
 module "cmk_encrypted_sqs" {
   source = "../../"
 
-  name              = "${local.name}-cmk"
-  use_name_prefix   = true
-  kms_master_key_id = aws_kms_key.this.id
+  name            = "${local.name}-cmk"
+  use_name_prefix = true
+
+  kms_master_key_id                 = aws_kms_key.this.id
+  kms_data_key_reuse_period_seconds = 3600
 
   tags = local.tags
 }
@@ -69,50 +73,50 @@ module "sqs_with_dlq" {
 
   name = "${local.name}-sqs-with-dlq"
 
+  # Policy
+  create_queue_policy = true
+  queue_policy_statements = {
+    account = {
+      sid = "AccountReadWrite"
+      actions = [
+        "sqs:SendMessage",
+        "sqs:ReceiveMessage",
+      ]
+      principals = [
+        {
+          type        = "AWS"
+          identifiers = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"]
+        }
+      ]
+    }
+  }
+
+  # Dead letter queue
   create_dlq = true
   redrive_policy = {
     # default is 5 for this module
     maxReceiveCount = 10
   }
 
-  tags = local.tags
-}
-
-module "dlq_redrive_sqs" {
-  source = "../../"
-
-  name = "${local.name}-sqs-dlq-redrive"
-
-  redrive_allow_policy = {
-    redrivePermission = "byQueue",
-    sourceQueueArns   = [module.sse_encrypted_sqs.queue_arn]
-  }
-
-  tags = local.tags
-}
-
-resource "aws_sqs_queue_policy" "sse_encrypted_policy" {
-  queue_url = module.sse_encrypted_sqs.queue_id
-
-  policy = <<-EOF
-    {
-      "Version": "2008-10-17",
-      "Id": " policy",
-      "Statement": [
+  # Dead letter queue policy
+  create_dlq_queue_policy = true
+  dlq_queue_policy_statements = {
+    account = {
+      sid = "AccountReadWrite"
+      actions = [
+        "sqs:SendMessage",
+        "sqs:ReceiveMessage",
+      ]
+      principals = [
         {
-          "Effect": "Allow",
-          "Principal": {
-            "AWS": "arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"
-          },
-          "Action": [
-            "SQS:SendMessage",
-            "SQS:ReceiveMessage"
-          ],
-          "Resource": "${module.sse_encrypted_sqs.queue_arn}"
+          type        = "AWS"
+          identifiers = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"]
         }
       ]
     }
-  EOF
+  }
+
+  tags = local.tags
 }
 
 module "disabled_sqs" {
@@ -124,7 +128,5 @@ module "disabled_sqs" {
 ################################################################################
 # Supporting resources
 ################################################################################
-
-data "aws_caller_identity" "current" {}
 
 resource "aws_kms_key" "this" {}

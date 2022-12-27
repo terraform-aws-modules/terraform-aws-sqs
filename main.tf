@@ -16,12 +16,70 @@ resource "aws_sqs_queue" "this" {
   message_retention_seconds         = var.message_retention_seconds
   name                              = var.use_name_prefix ? null : (var.fifo_queue ? "${trimsuffix(var.name, ".fifo")}.fifo" : var.name)
   name_prefix                       = var.use_name_prefix ? "${var.name}-" : null
-  policy                            = var.policy
   receive_wait_time_seconds         = var.receive_wait_time_seconds
   sqs_managed_sse_enabled           = var.sqs_managed_sse_enabled
   visibility_timeout_seconds        = var.visibility_timeout_seconds
 
   tags = var.tags
+}
+
+################################################################################
+# Queue Policy
+################################################################################
+
+data "aws_iam_policy_document" "this" {
+  count = var.create && var.create_queue_policy ? 1 : 0
+
+  source_policy_documents   = var.source_queue_policy_documents
+  override_policy_documents = var.override_queue_policy_documents
+
+  dynamic "statement" {
+    for_each = var.queue_policy_statements
+
+    content {
+      sid           = try(statement.value.sid, null)
+      actions       = try(statement.value.actions, null)
+      not_actions   = try(statement.value.not_actions, null)
+      effect        = try(statement.value.effect, null)
+      resources     = try(statement.value.resources, [aws_sqs_queue.this[0].arn])
+      not_resources = try(statement.value.not_resources, null)
+
+      dynamic "principals" {
+        for_each = try(statement.value.principals, [])
+
+        content {
+          type        = principals.value.type
+          identifiers = principals.value.identifiers
+        }
+      }
+
+      dynamic "not_principals" {
+        for_each = try(statement.value.not_principals, [])
+
+        content {
+          type        = not_principals.value.type
+          identifiers = not_principals.value.identifiers
+        }
+      }
+
+      dynamic "condition" {
+        for_each = try(statement.value.conditions, [])
+
+        content {
+          test     = condition.value.test
+          values   = condition.value.values
+          variable = condition.value.variable
+        }
+      }
+    }
+  }
+}
+
+resource "aws_sqs_queue_policy" "this" {
+  count = var.create && var.create_queue_policy ? 1 : 0
+
+  queue_url = aws_sqs_queue.this[0].url
+  policy    = data.aws_iam_policy_document.this[0].json
 }
 
 ################################################################################
@@ -76,12 +134,70 @@ resource "aws_sqs_queue" "dlq" {
   message_retention_seconds         = try(coalesce(var.dlq_message_retention_seconds, var.message_retention_seconds), null)
   name                              = var.use_name_prefix ? null : local.dlq_name
   name_prefix                       = var.use_name_prefix ? "${local.dlq_name}-" : null
-  policy                            = try(coalesce(var.dlq_policy, var.policy), null)
   receive_wait_time_seconds         = try(coalesce(var.dlq_receive_wait_time_seconds, var.receive_wait_time_seconds), null)
   sqs_managed_sse_enabled           = local.dlq_sqs_managed_sse_enabled
   visibility_timeout_seconds        = try(coalesce(var.dlq_visibility_timeout_seconds, var.visibility_timeout_seconds), null)
 
   tags = merge(var.tags, var.dlq_tags)
+}
+
+################################################################################
+# Queue Policy
+################################################################################
+
+data "aws_iam_policy_document" "dlq" {
+  count = var.create && var.create_dlq && var.create_dlq_queue_policy ? 1 : 0
+
+  source_policy_documents   = var.source_dlq_queue_policy_documents
+  override_policy_documents = var.override_dlq_queue_policy_documents
+
+  dynamic "statement" {
+    for_each = var.dlq_queue_policy_statements
+
+    content {
+      sid           = try(statement.value.sid, null)
+      actions       = try(statement.value.actions, null)
+      not_actions   = try(statement.value.not_actions, null)
+      effect        = try(statement.value.effect, null)
+      resources     = try(statement.value.resources, [aws_sqs_queue.dlq[0].arn])
+      not_resources = try(statement.value.not_resources, null)
+
+      dynamic "principals" {
+        for_each = try(statement.value.principals, [])
+
+        content {
+          type        = principals.value.type
+          identifiers = principals.value.identifiers
+        }
+      }
+
+      dynamic "not_principals" {
+        for_each = try(statement.value.not_principals, [])
+
+        content {
+          type        = not_principals.value.type
+          identifiers = not_principals.value.identifiers
+        }
+      }
+
+      dynamic "condition" {
+        for_each = try(statement.value.conditions, [])
+
+        content {
+          test     = condition.value.test
+          values   = condition.value.values
+          variable = condition.value.variable
+        }
+      }
+    }
+  }
+}
+
+resource "aws_sqs_queue_policy" "dlq" {
+  count = var.create && var.create_dlq && var.create_dlq_queue_policy ? 1 : 0
+
+  queue_url = aws_sqs_queue.dlq[0].url
+  policy    = data.aws_iam_policy_document.dlq[0].json
 }
 
 ################################################################################
