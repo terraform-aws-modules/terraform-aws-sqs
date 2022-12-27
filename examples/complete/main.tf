@@ -65,15 +65,41 @@ module "sse_encrypted_sqs" {
   name                    = "${local.name}-sse"
   sqs_managed_sse_enabled = true
 
+  # Dead letter queue
+  redrive_policy = {
+    deadLetterTargetArn = module.sse_encrypted_dlq_sqs.queue_arn
+    maxReceiveCount     = 10
+  }
+
+  tags = local.tags
+}
+
+module "sse_encrypted_dlq_sqs" {
+  source = "../../"
+
+  # This is a separate queue used as a dead letter queue for the above example
+  # instead of the module creating both the queue and dead letter queue together
+
+  name                    = "${local.name}-sse-dlq"
+  sqs_managed_sse_enabled = true
+
+  # Dead letter queue
+  dlq_redrive_allow_policy = {
+    sourceQueueArns = [module.sse_encrypted_sqs.queue_arn]
+  }
+
   tags = local.tags
 }
 
 module "sqs_with_dlq" {
   source = "../../"
 
+  # This creates both the queue and the dead letter queue together
+
   name = "${local.name}-sqs-with-dlq"
 
   # Policy
+  # Not required - just showing example
   create_queue_policy = true
   queue_policy_statements = {
     account = {
@@ -99,6 +125,7 @@ module "sqs_with_dlq" {
   }
 
   # Dead letter queue policy
+  # Not required - just showing example
   create_dlq_queue_policy = true
   dlq_queue_policy_statements = {
     account = {

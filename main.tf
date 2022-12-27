@@ -11,13 +11,13 @@ resource "aws_sqs_queue" "this" {
   fifo_queue                        = var.fifo_queue
   fifo_throughput_limit             = var.fifo_throughput_limit
   kms_data_key_reuse_period_seconds = var.kms_data_key_reuse_period_seconds
-  kms_master_key_id                 = var.sqs_managed_sse_enabled ? null : var.kms_master_key_id
+  kms_master_key_id                 = var.kms_master_key_id
   max_message_size                  = var.max_message_size
   message_retention_seconds         = var.message_retention_seconds
   name                              = var.use_name_prefix ? null : (var.fifo_queue ? "${trimsuffix(var.name, ".fifo")}.fifo" : var.name)
   name_prefix                       = var.use_name_prefix ? "${var.name}-" : null
   receive_wait_time_seconds         = var.receive_wait_time_seconds
-  sqs_managed_sse_enabled           = var.sqs_managed_sse_enabled
+  sqs_managed_sse_enabled           = var.kms_master_key_id != null ? null : var.sqs_managed_sse_enabled
   visibility_timeout_seconds        = var.visibility_timeout_seconds
 
   tags = var.tags

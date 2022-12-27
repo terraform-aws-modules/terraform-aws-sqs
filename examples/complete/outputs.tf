@@ -203,6 +203,88 @@ output "sse_encrypted_sqs_dlq_name" {
   value       = module.sse_encrypted_sqs.dead_letter_queue_name
 }
 
+# SSE Encrypted Dead Letter Quue
+output "sse_encrypted_dlq_sqs_queue_id" {
+  description = "The URL for the created Amazon SQS queue"
+  value       = module.sse_encrypted_dlq_sqs.queue_id
+}
+
+output "sse_encrypted_dlq_sqs_queue_arn" {
+  description = "The ARN of the SQS queue"
+  value       = module.sse_encrypted_dlq_sqs.queue_arn
+}
+
+output "sse_encrypted_dlq_sqs_queue_url" {
+  description = "Same as `queue_id`: The URL for the created Amazon SQS queue"
+  value       = module.sse_encrypted_dlq_sqs.queue_url
+}
+
+output "sse_encrypted_dlq_sqs_queue_name" {
+  description = "The name of the SQS queue"
+  value       = module.sse_encrypted_dlq_sqs.queue_name
+}
+
+output "sse_encrypted_dlq_sqs_dlq_id" {
+  description = "The URL for the created Amazon SQS queue"
+  value       = module.sse_encrypted_dlq_sqs.dead_letter_queue_id
+}
+
+output "sse_encrypted_dlq_sqs_dlq_arn" {
+  description = "The ARN of the SQS queue"
+  value       = module.sse_encrypted_dlq_sqs.dead_letter_queue_arn
+}
+
+output "sse_encrypted_dlq_sqs_dlq_url" {
+  description = "Same as `dead_letter_queue_id`: The URL for the created Amazon SQS queue"
+  value       = module.sse_encrypted_dlq_sqs.dead_letter_queue_url
+}
+
+output "sse_encrypted_dlq_sqs_dlq_name" {
+  description = "The name of the SQS queue"
+  value       = module.sse_encrypted_dlq_sqs.dead_letter_queue_name
+}
+
+# With Dead Letter Queue
+output "sqs_with_dlq_queue_id" {
+  description = "The URL for the created Amazon SQS queue"
+  value       = module.sqs_with_dlq.queue_id
+}
+
+output "sqs_with_dlq_queue_arn" {
+  description = "The ARN of the SQS queue"
+  value       = module.sqs_with_dlq.queue_arn
+}
+
+output "sqs_with_dlq_queue_url" {
+  description = "Same as `queue_id`: The URL for the created Amazon SQS queue"
+  value       = module.sqs_with_dlq.queue_url
+}
+
+output "sqs_with_dlq_queue_name" {
+  description = "The name of the SQS queue"
+  value       = module.sqs_with_dlq.queue_name
+}
+
+output "sqs_with_dlq_dlq_id" {
+  description = "The URL for the created Amazon SQS queue"
+  value       = module.sqs_with_dlq.dead_letter_queue_id
+}
+
+output "sqs_with_dlq_dlq_arn" {
+  description = "The ARN of the SQS queue"
+  value       = module.sqs_with_dlq.dead_letter_queue_arn
+}
+
+output "sqs_with_dlq_dlq_url" {
+  description = "Same as `dead_letter_queue_id`: The URL for the created Amazon SQS queue"
+  value       = module.sqs_with_dlq.dead_letter_queue_url
+}
+
+output "sqs_with_dlq_dlq_name" {
+  description = "The name of the SQS queue"
+  value       = module.sqs_with_dlq.dead_letter_queue_name
+}
+
 # Disabled
 output "disabled_sqs_queue_id" {
   description = "The URL for the created Amazon SQS queue"

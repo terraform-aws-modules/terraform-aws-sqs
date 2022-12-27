@@ -37,6 +37,7 @@ Note that this example may create resources which cost money. Run `terraform des
 | <a name="module_disabled_sqs"></a> [disabled\_sqs](#module\_disabled\_sqs) | ../../ | n/a |
 | <a name="module_fifo_sqs"></a> [fifo\_sqs](#module\_fifo\_sqs) | ../../ | n/a |
 | <a name="module_sqs_with_dlq"></a> [sqs\_with\_dlq](#module\_sqs\_with\_dlq) | ../../ | n/a |
+| <a name="module_sse_encrypted_dlq_sqs"></a> [sse\_encrypted\_dlq\_sqs](#module\_sse\_encrypted\_dlq\_sqs) | ../../ | n/a |
 | <a name="module_sse_encrypted_sqs"></a> [sse\_encrypted\_sqs](#module\_sse\_encrypted\_sqs) | ../../ | n/a |
 | <a name="module_unencrypted_sqs"></a> [unencrypted\_sqs](#module\_unencrypted\_sqs) | ../../ | n/a |
 
@@ -87,6 +88,22 @@ No inputs.
 | <a name="output_fifo_sqs_queue_id"></a> [fifo\_sqs\_queue\_id](#output\_fifo\_sqs\_queue\_id) | The URL for the created Amazon SQS queue |
 | <a name="output_fifo_sqs_queue_name"></a> [fifo\_sqs\_queue\_name](#output\_fifo\_sqs\_queue\_name) | The name of the SQS queue |
 | <a name="output_fifo_sqs_queue_url"></a> [fifo\_sqs\_queue\_url](#output\_fifo\_sqs\_queue\_url) | Same as `queue_id`: The URL for the created Amazon SQS queue |
+| <a name="output_sqs_with_dlq_dlq_arn"></a> [sqs\_with\_dlq\_dlq\_arn](#output\_sqs\_with\_dlq\_dlq\_arn) | The ARN of the SQS queue |
+| <a name="output_sqs_with_dlq_dlq_id"></a> [sqs\_with\_dlq\_dlq\_id](#output\_sqs\_with\_dlq\_dlq\_id) | The URL for the created Amazon SQS queue |
+| <a name="output_sqs_with_dlq_dlq_name"></a> [sqs\_with\_dlq\_dlq\_name](#output\_sqs\_with\_dlq\_dlq\_name) | The name of the SQS queue |
+| <a name="output_sqs_with_dlq_dlq_url"></a> [sqs\_with\_dlq\_dlq\_url](#output\_sqs\_with\_dlq\_dlq\_url) | Same as `dead_letter_queue_id`: The URL for the created Amazon SQS queue |
+| <a name="output_sqs_with_dlq_queue_arn"></a> [sqs\_with\_dlq\_queue\_arn](#output\_sqs\_with\_dlq\_queue\_arn) | The ARN of the SQS queue |
+| <a name="output_sqs_with_dlq_queue_id"></a> [sqs\_with\_dlq\_queue\_id](#output\_sqs\_with\_dlq\_queue\_id) | The URL for the created Amazon SQS queue |
+| <a name="output_sqs_with_dlq_queue_name"></a> [sqs\_with\_dlq\_queue\_name](#output\_sqs\_with\_dlq\_queue\_name) | The name of the SQS queue |
+| <a name="output_sqs_with_dlq_queue_url"></a> [sqs\_with\_dlq\_queue\_url](#output\_sqs\_with\_dlq\_queue\_url) | Same as `queue_id`: The URL for the created Amazon SQS queue |
+| <a name="output_sse_encrypted_dlq_sqs_dlq_arn"></a> [sse\_encrypted\_dlq\_sqs\_dlq\_arn](#output\_sse\_encrypted\_dlq\_sqs\_dlq\_arn) | The ARN of the SQS queue |
+| <a name="output_sse_encrypted_dlq_sqs_dlq_id"></a> [sse\_encrypted\_dlq\_sqs\_dlq\_id](#output\_sse\_encrypted\_dlq\_sqs\_dlq\_id) | The URL for the created Amazon SQS queue |
+| <a name="output_sse_encrypted_dlq_sqs_dlq_name"></a> [sse\_encrypted\_dlq\_sqs\_dlq\_name](#output\_sse\_encrypted\_dlq\_sqs\_dlq\_name) | The name of the SQS queue |
+| <a name="output_sse_encrypted_dlq_sqs_dlq_url"></a> [sse\_encrypted\_dlq\_sqs\_dlq\_url](#output\_sse\_encrypted\_dlq\_sqs\_dlq\_url) | Same as `dead_letter_queue_id`: The URL for the created Amazon SQS queue |
+| <a name="output_sse_encrypted_dlq_sqs_queue_arn"></a> [sse\_encrypted\_dlq\_sqs\_queue\_arn](#output\_sse\_encrypted\_dlq\_sqs\_queue\_arn) | The ARN of the SQS queue |
+| <a name="output_sse_encrypted_dlq_sqs_queue_id"></a> [sse\_encrypted\_dlq\_sqs\_queue\_id](#output\_sse\_encrypted\_dlq\_sqs\_queue\_id) | The URL for the created Amazon SQS queue |
+| <a name="output_sse_encrypted_dlq_sqs_queue_name"></a> [sse\_encrypted\_dlq\_sqs\_queue\_name](#output\_sse\_encrypted\_dlq\_sqs\_queue\_name) | The name of the SQS queue |
+| <a name="output_sse_encrypted_dlq_sqs_queue_url"></a> [sse\_encrypted\_dlq\_sqs\_queue\_url](#output\_sse\_encrypted\_dlq\_sqs\_queue\_url) | Same as `queue_id`: The URL for the created Amazon SQS queue |
 | <a name="output_sse_encrypted_sqs_dlq_arn"></a> [sse\_encrypted\_sqs\_dlq\_arn](#output\_sse\_encrypted\_sqs\_dlq\_arn) | The ARN of the SQS queue |
 | <a name="output_sse_encrypted_sqs_dlq_id"></a> [sse\_encrypted\_sqs\_dlq\_id](#output\_sse\_encrypted\_sqs\_dlq\_id) | The URL for the created Amazon SQS queue |
 | <a name="output_sse_encrypted_sqs_dlq_name"></a> [sse\_encrypted\_sqs\_dlq\_name](#output\_sse\_encrypted\_sqs\_dlq\_name) | The name of the SQS queue |
