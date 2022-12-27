@@ -2,17 +2,132 @@
 
 Terraform module which creates SQS resources on AWS.
 
+[![SWUbanner](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/banner2-direct.svg)](https://github.com/vshymanskyy/StandWithUkraine/blob/main/docs/README.md)
+
 ## Usage
 
-```hcl
-module "user_queue" {
-  source  = "terraform-aws-modules/sqs/aws"
-  version = "~> 2.0"
+### FIFO Queue
 
-  name = "user"
+```hcl
+module "sqs" {
+  source  = "terraform-aws-modules/sqs/aws"
+
+  name = "fifo"
+
+  fifo_queue = true
 
   tags = {
-    Service     = "user"
+    Environment = "dev"
+  }
+}
+```
+
+### Queue Encrypted w/ Customer Managed KMS Key
+
+```hcl
+module "sqs" {
+  source  = "terraform-aws-modules/sqs/aws"
+
+  name = "cmk"
+
+  kms_master_key_id                 = "0d1ba9e8-9421-498a-9c8a-01e9772b2924"
+  kms_data_key_reuse_period_seconds = 3600
+
+  tags = {
+    Environment = "dev"
+  }
+}
+```
+
+### Queue w/ Dead Letter Queue
+
+```hcl
+module "sqs" {
+  source  = "terraform-aws-modules/sqs/aws"
+
+  name = "example"
+
+  create_dlq = true
+  redrive_policy = {
+    # default is 5 for this module
+    maxReceiveCount = 10
+  }
+
+  tags = {
+    Environment = "dev"
+  }
+}
+```
+
+### Subscribe Queue to SNS Topic
+
+```hcl
+module "sns" {
+  source  = "terraform-aws-modules/sns/aws"
+  version = ">= 5.0"
+
+  name = "pub-sub"
+
+  topic_policy_statements = {
+    sqs = {
+      sid = "SQSSubscribe"
+      actions = [
+        "sns:Subscribe",
+        "sns:Receive",
+      ]
+
+      principals = [{
+        type        = "AWS"
+        identifiers = ["*"]
+      }]
+
+      conditions = [{
+        test     = "StringLike"
+        variable = "sns:Endpoint"
+        values   = [module.sqs.queue_arn]
+      }]
+    }
+  }
+
+  subscriptions = {
+    sqs = {
+      protocol = "sqs"
+      endpoint = module.sqs.queue_arn
+    }
+  }
+
+  tags = {
+    Environment = "dev"
+  }
+}
+
+module "sqs" {
+  source = "terraform-aws-modules/sqs/aws"
+
+  name = "pub-sub"
+
+  create_queue_policy = true
+  queue_policy_statements = {
+    sns = {
+      sid     = "SNSPublish"
+      actions = ["sqs:SendMessage"]
+
+      principals = [
+        {
+          type        = "Service"
+          identifiers = ["sns.amazonaws.com"]
+        }
+      ]
+
+      condition = {
+        test     = "ArnEquals"
+        variable = "aws:SourceArn"
+        values   = [module.sns.topic_arn]
+      }
+    }
+  }
+
+  tags = {
     Environment = "dev"
   }
 }
@@ -20,19 +135,28 @@ module "user_queue" {
 
 ## Examples
 
-- [SQS queues with server-side encryption (SSE) using KMS and without SSE](https://github.com/terraform-aws-modules/terraform-aws-sqs/tree/master/examples/complete)
+- [Complete](https://github.com/terraform-aws-modules/terraform-aws-sqs/tree/master/examples/complete)
 
-## Conditional creation
+## Conditional Creation
 
-Sometimes you need to have a way to create SQS queue conditionally but Terraform does not allow to use `count` inside `module` block, so the solution is to specify argument `create`.
+The following values are provided to toggle on/off creation of the associated resources as desired:
 
 ```hcl
-# This SQS queue will not be created
-module "user_queue" {
+module "sqs" {
   source  = "terraform-aws-modules/sqs/aws"
-  version = "~> 2.0"
 
+  # Disable creation of all resources
   create = false
+
+  # Enable creation of queue policy
+  create_queue_policy = true
+
+  # Enable creation of dead letter queue
+  create_dlq = true
+
+  # Enable creation of dead letter queue policy
+  create_dlq_queue_policy = true
+
   # ... omitted
 }
 ```

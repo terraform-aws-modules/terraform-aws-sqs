@@ -9,9 +9,9 @@ locals {
   region = "eu-west-1"
 
   tags = {
-    Example    = local.name
-    GithubRepo = "terraform-aws-sqs"
-    GithubOrg  = "terraform-aws-modules"
+    Name       = local.name
+    Example    = "complete"
+    Repository = "github.com/terraform-aws-modules/terraform-aws-sqs"
   }
 }
 

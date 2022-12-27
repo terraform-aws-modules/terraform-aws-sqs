@@ -1,6 +1,14 @@
-# Complete SQS queues example
+# Complete SQS Queue Example
 
-Configuration in this directory creates 2 SQS queues - with server-side encryption (SSE) using specified KMS key and without SSE.
+Configuration in this directory creates:
+- Queue using module default settings
+- FIFO (first-in, first-out) queue
+- Unencrypted queue (encryption disabled)
+- Queue encrypted with customer managed KMS key
+- Queue encrypted with default SQS SSE (server-side encryption) w/ separate dead-letter queue
+  - Dead letter queue created in separate module definition
+- Queue with dead-letter queue created in the same module defintion w/ queue policies for both the source queue and dead-letter queue
+- Disabled queue (no resources created)
 
 ## Usage
 
