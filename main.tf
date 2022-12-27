@@ -1,3 +1,7 @@
+################################################################################
+# Queue
+################################################################################
+
 resource "aws_sqs_queue" "this" {
   count = var.create ? 1 : 0
 
@@ -22,11 +26,4 @@ resource "aws_sqs_queue" "this" {
   kms_data_key_reuse_period_seconds = var.kms_data_key_reuse_period_seconds
 
   tags = var.tags
-}
-
-data "aws_arn" "this" {
-  count = var.create ? 1 : 0
-
-  arn = aws_sqs_queue.this[0].arn
-
 }
