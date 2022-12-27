@@ -34,7 +34,9 @@ Note that this example may create resources which cost money. Run `terraform des
 |------|--------|---------|
 | <a name="module_cmk_encrypted_sqs"></a> [cmk\_encrypted\_sqs](#module\_cmk\_encrypted\_sqs) | ../../ | n/a |
 | <a name="module_default_sqs"></a> [default\_sqs](#module\_default\_sqs) | ../../ | n/a |
+| <a name="module_disabled_sqs"></a> [disabled\_sqs](#module\_disabled\_sqs) | ../../ | n/a |
 | <a name="module_dlq_redrive_sqs"></a> [dlq\_redrive\_sqs](#module\_dlq\_redrive\_sqs) | ../../ | n/a |
+| <a name="module_fifo_sqs"></a> [fifo\_sqs](#module\_fifo\_sqs) | ../../ | n/a |
 | <a name="module_sse_encrypted_sqs"></a> [sse\_encrypted\_sqs](#module\_sse\_encrypted\_sqs) | ../../ | n/a |
 
 ## Resources
@@ -59,9 +61,15 @@ No inputs.
 | <a name="output_default_sqs_queue_arn"></a> [default\_sqs\_queue\_arn](#output\_default\_sqs\_queue\_arn) | The ARN of the SQS queue |
 | <a name="output_default_sqs_queue_id"></a> [default\_sqs\_queue\_id](#output\_default\_sqs\_queue\_id) | The URL for the created Amazon SQS queue |
 | <a name="output_default_sqs_queue_name"></a> [default\_sqs\_queue\_name](#output\_default\_sqs\_queue\_name) | The name of the SQS queue |
+| <a name="output_disabled_sqs_queue_arn"></a> [disabled\_sqs\_queue\_arn](#output\_disabled\_sqs\_queue\_arn) | The ARN of the SQS queue |
+| <a name="output_disabled_sqs_queue_id"></a> [disabled\_sqs\_queue\_id](#output\_disabled\_sqs\_queue\_id) | The URL for the created Amazon SQS queue |
+| <a name="output_disabled_sqs_queue_name"></a> [disabled\_sqs\_queue\_name](#output\_disabled\_sqs\_queue\_name) | The name of the SQS queue |
 | <a name="output_dlq_redrive_sqs_queue_arn"></a> [dlq\_redrive\_sqs\_queue\_arn](#output\_dlq\_redrive\_sqs\_queue\_arn) | The ARN of the SQS queue |
 | <a name="output_dlq_redrive_sqs_queue_id"></a> [dlq\_redrive\_sqs\_queue\_id](#output\_dlq\_redrive\_sqs\_queue\_id) | The URL for the created Amazon SQS queue |
 | <a name="output_dlq_redrive_sqs_queue_name"></a> [dlq\_redrive\_sqs\_queue\_name](#output\_dlq\_redrive\_sqs\_queue\_name) | The name of the SQS queue |
+| <a name="output_fifo_sqs_queue_arn"></a> [fifo\_sqs\_queue\_arn](#output\_fifo\_sqs\_queue\_arn) | The ARN of the SQS queue |
+| <a name="output_fifo_sqs_queue_id"></a> [fifo\_sqs\_queue\_id](#output\_fifo\_sqs\_queue\_id) | The URL for the created Amazon SQS queue |
+| <a name="output_fifo_sqs_queue_name"></a> [fifo\_sqs\_queue\_name](#output\_fifo\_sqs\_queue\_name) | The name of the SQS queue |
 | <a name="output_sse_encrypted_sqs_queue_arn"></a> [sse\_encrypted\_sqs\_queue\_arn](#output\_sse\_encrypted\_sqs\_queue\_arn) | The ARN of the SQS queue |
 | <a name="output_sse_encrypted_sqs_queue_id"></a> [sse\_encrypted\_sqs\_queue\_id](#output\_sse\_encrypted\_sqs\_queue\_id) | The URL for the created Amazon SQS queue |
 | <a name="output_sse_encrypted_sqs_queue_name"></a> [sse\_encrypted\_sqs\_queue\_name](#output\_sse\_encrypted\_sqs\_queue\_name) | The name of the SQS queue |

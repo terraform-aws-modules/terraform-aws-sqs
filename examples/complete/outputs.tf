@@ -14,6 +14,22 @@ output "default_sqs_queue_name" {
   value       = module.default_sqs.queue_name
 }
 
+# FIFO
+output "fifo_sqs_queue_id" {
+  description = "The URL for the created Amazon SQS queue"
+  value       = module.fifo_sqs.queue_id
+}
+
+output "fifo_sqs_queue_arn" {
+  description = "The ARN of the SQS queue"
+  value       = module.fifo_sqs.queue_arn
+}
+
+output "fifo_sqs_queue_name" {
+  description = "The name of the SQS queue"
+  value       = module.fifo_sqs.queue_name
+}
+
 # CMK Encrypted
 output "cmk_unencrypted_sqs_queue_id" {
   description = "The URL for the created Amazon SQS queue"
@@ -60,4 +76,20 @@ output "dlq_redrive_sqs_queue_arn" {
 output "dlq_redrive_sqs_queue_name" {
   description = "The name of the SQS queue"
   value       = module.dlq_redrive_sqs.queue_name
+}
+
+# Disabled
+output "disabled_sqs_queue_id" {
+  description = "The URL for the created Amazon SQS queue"
+  value       = module.disabled_sqs.queue_id
+}
+
+output "disabled_sqs_queue_arn" {
+  description = "The ARN of the SQS queue"
+  value       = module.disabled_sqs.queue_arn
+}
+
+output "disabled_sqs_queue_name" {
+  description = "The name of the SQS queue"
+  value       = module.disabled_sqs.queue_name
 }

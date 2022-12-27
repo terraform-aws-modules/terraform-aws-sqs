@@ -25,10 +25,23 @@ module "default_sqs" {
   tags = local.tags
 }
 
+module "fifo_sqs" {
+  source = "../../"
+
+  # `.fifo` is automatically appended to the name
+  name       = local.name
+  fifo_queue = true
+
+  tags = local.tags
+}
+
+# DLQ
+
 module "cmk_encrypted_sqs" {
   source = "../../"
 
-  name_prefix       = "${local.name}-cmk-"
+  name              = "${local.name}-cmk"
+  use_name_prefix   = true
   kms_master_key_id = aws_kms_key.this.id
 
   tags = local.tags
@@ -37,7 +50,7 @@ module "cmk_encrypted_sqs" {
 module "sse_encrypted_sqs" {
   source = "../../"
 
-  name_prefix             = "${local.name}-sse-"
+  name                    = "${local.name}-sse"
   sqs_managed_sse_enabled = true
 
   tags = local.tags
@@ -46,7 +59,7 @@ module "sse_encrypted_sqs" {
 module "dlq_redrive_sqs" {
   source = "../../"
 
-  name_prefix = "${local.name}-sqs-dlq-redrive-"
+  name = "${local.name}-sqs-dlq-redrive"
 
   redrive_allow_policy = jsonencode({
     redrivePermission = "byQueue",
@@ -78,6 +91,12 @@ resource "aws_sqs_queue_policy" "sse_encrypted_policy" {
       ]
     }
   EOF
+}
+
+module "disabled_sqs" {
+  source = "../../"
+
+  create = false
 }
 
 ################################################################################
