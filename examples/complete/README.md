@@ -32,17 +32,17 @@ Note that this example may create resources which cost money. Run `terraform des
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_cmk_encrypted"></a> [cmk\_encrypted](#module\_cmk\_encrypted) | ../../ | n/a |
-| <a name="module_default"></a> [default](#module\_default) | ../../ | n/a |
-| <a name="module_dlq_redrive"></a> [dlq\_redrive](#module\_dlq\_redrive) | ../../ | n/a |
-| <a name="module_sse_encrypted"></a> [sse\_encrypted](#module\_sse\_encrypted) | ../../ | n/a |
+| <a name="module_cmk_encrypted_sqs"></a> [cmk\_encrypted\_sqs](#module\_cmk\_encrypted\_sqs) | ../../ | n/a |
+| <a name="module_default_sqs"></a> [default\_sqs](#module\_default\_sqs) | ../../ | n/a |
+| <a name="module_dlq_redrive_sqs"></a> [dlq\_redrive\_sqs](#module\_dlq\_redrive\_sqs) | ../../ | n/a |
+| <a name="module_sse_encrypted_sqs"></a> [sse\_encrypted\_sqs](#module\_sse\_encrypted\_sqs) | ../../ | n/a |
 
 ## Resources
 
 | Name | Type |
 |------|------|
 | [aws_kms_key.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kms_key) | resource |
-| [aws_sqs_queue_policy.users_unencrypted_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sqs_queue_policy) | resource |
+| [aws_sqs_queue_policy.sse_encrypted_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sqs_queue_policy) | resource |
 | [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 
 ## Inputs

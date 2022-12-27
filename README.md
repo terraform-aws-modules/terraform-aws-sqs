@@ -89,10 +89,10 @@ No modules.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_sqs_queue_arn"></a> [sqs\_queue\_arn](#output\_sqs\_queue\_arn) | The ARN of the SQS queue |
-| <a name="output_sqs_queue_id"></a> [sqs\_queue\_id](#output\_sqs\_queue\_id) | The URL for the created Amazon SQS queue |
-| <a name="output_sqs_queue_name"></a> [sqs\_queue\_name](#output\_sqs\_queue\_name) | The name of the SQS queue |
-| <a name="output_sqs_queue_url"></a> [sqs\_queue\_url](#output\_sqs\_queue\_url) | Same as `id`: The URL for the created Amazon SQS queue. |
+| <a name="output_queue_arn"></a> [queue\_arn](#output\_queue\_arn) | The ARN of the SQS queue |
+| <a name="output_queue_id"></a> [queue\_id](#output\_queue\_id) | The URL for the created Amazon SQS queue |
+| <a name="output_queue_name"></a> [queue\_name](#output\_queue\_name) | The name of the SQS queue |
+| <a name="output_queue_url"></a> [queue\_url](#output\_queue\_url) | Same as `id`: The URL for the created Amazon SQS queue. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## Authors

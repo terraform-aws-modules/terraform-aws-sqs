@@ -17,7 +17,7 @@ locals {
 # SQS Module
 ################################################################################
 
-module "default" {
+module "default_sqs" {
   source = "../../"
 
   name = local.name
@@ -25,7 +25,7 @@ module "default" {
   tags = local.tags
 }
 
-module "cmk_encrypted" {
+module "cmk_encrypted_sqs" {
   source = "../../"
 
   name_prefix       = "${local.name}-cmk-"
@@ -34,7 +34,7 @@ module "cmk_encrypted" {
   tags = local.tags
 }
 
-module "sse_encrypted" {
+module "sse_encrypted_sqs" {
   source = "../../"
 
   name_prefix             = "${local.name}-sse-"
@@ -43,21 +43,21 @@ module "sse_encrypted" {
   tags = local.tags
 }
 
-module "dlq_redrive" {
+module "dlq_redrive_sqs" {
   source = "../../"
 
   name_prefix = "${local.name}-sqs-dlq-redrive-"
 
   redrive_allow_policy = jsonencode({
     redrivePermission = "byQueue",
-    sourceQueueArns   = [module.sse_encrypted.sqs_queue_arn]
+    sourceQueueArns   = [module.sse_encrypted_sqs.queue_arn]
   })
 
   tags = local.tags
 }
 
-resource "aws_sqs_queue_policy" "users_unencrypted_policy" {
-  queue_url = module.sse_encrypted.sqs_queue_id
+resource "aws_sqs_queue_policy" "sse_encrypted_policy" {
+  queue_url = module.sse_encrypted_sqs.queue_id
 
   policy = <<-EOF
     {
@@ -73,7 +73,7 @@ resource "aws_sqs_queue_policy" "users_unencrypted_policy" {
             "SQS:SendMessage",
             "SQS:ReceiveMessage"
           ],
-          "Resource": "${module.sse_encrypted.sqs_queue_arn}"
+          "Resource": "${module.sse_encrypted_sqs.queue_arn}"
         }
       ]
     }
