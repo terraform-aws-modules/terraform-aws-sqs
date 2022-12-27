@@ -32,10 +32,10 @@ Note that this example may create resources which cost money. Run `terraform des
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_sqs_dlq_allow_redrive_policy"></a> [sqs\_dlq\_allow\_redrive\_policy](#module\_sqs\_dlq\_allow\_redrive\_policy) | ../../ | n/a |
-| <a name="module_users_encrypted"></a> [users\_encrypted](#module\_users\_encrypted) | ../../ | n/a |
-| <a name="module_users_encrypted_with_sse"></a> [users\_encrypted\_with\_sse](#module\_users\_encrypted\_with\_sse) | ../../ | n/a |
-| <a name="module_users_unencrypted"></a> [users\_unencrypted](#module\_users\_unencrypted) | ../../ | n/a |
+| <a name="module_cmk_encrypted"></a> [cmk\_encrypted](#module\_cmk\_encrypted) | ../../ | n/a |
+| <a name="module_default"></a> [default](#module\_default) | ../../ | n/a |
+| <a name="module_dlq_redrive"></a> [dlq\_redrive](#module\_dlq\_redrive) | ../../ | n/a |
+| <a name="module_sse_encrypted"></a> [sse\_encrypted](#module\_sse\_encrypted) | ../../ | n/a |
 
 ## Resources
 
@@ -53,10 +53,16 @@ No inputs.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_users_encrypted_sqs_queue_arn"></a> [users\_encrypted\_sqs\_queue\_arn](#output\_users\_encrypted\_sqs\_queue\_arn) | The ARN of the SQS queue |
-| <a name="output_users_encrypted_sqs_queue_id"></a> [users\_encrypted\_sqs\_queue\_id](#output\_users\_encrypted\_sqs\_queue\_id) | The URL for the created Amazon SQS queue |
-| <a name="output_users_encrypted_sqs_queue_name"></a> [users\_encrypted\_sqs\_queue\_name](#output\_users\_encrypted\_sqs\_queue\_name) | The name of the SQS queue |
-| <a name="output_users_sqs_queue_name"></a> [users\_sqs\_queue\_name](#output\_users\_sqs\_queue\_name) | The name of the SQS queue |
-| <a name="output_users_unencrypted_sqs_queue_arn"></a> [users\_unencrypted\_sqs\_queue\_arn](#output\_users\_unencrypted\_sqs\_queue\_arn) | The ARN of the SQS queue |
-| <a name="output_users_unencrypted_sqs_queue_id"></a> [users\_unencrypted\_sqs\_queue\_id](#output\_users\_unencrypted\_sqs\_queue\_id) | The URL for the created Amazon SQS queue |
+| <a name="output_cmk_sqs_queue_name"></a> [cmk\_sqs\_queue\_name](#output\_cmk\_sqs\_queue\_name) | The name of the SQS queue |
+| <a name="output_cmk_unencrypted_sqs_queue_arn"></a> [cmk\_unencrypted\_sqs\_queue\_arn](#output\_cmk\_unencrypted\_sqs\_queue\_arn) | The ARN of the SQS queue |
+| <a name="output_cmk_unencrypted_sqs_queue_id"></a> [cmk\_unencrypted\_sqs\_queue\_id](#output\_cmk\_unencrypted\_sqs\_queue\_id) | The URL for the created Amazon SQS queue |
+| <a name="output_default_sqs_queue_arn"></a> [default\_sqs\_queue\_arn](#output\_default\_sqs\_queue\_arn) | The ARN of the SQS queue |
+| <a name="output_default_sqs_queue_id"></a> [default\_sqs\_queue\_id](#output\_default\_sqs\_queue\_id) | The URL for the created Amazon SQS queue |
+| <a name="output_default_sqs_queue_name"></a> [default\_sqs\_queue\_name](#output\_default\_sqs\_queue\_name) | The name of the SQS queue |
+| <a name="output_dlq_redrive_sqs_queue_arn"></a> [dlq\_redrive\_sqs\_queue\_arn](#output\_dlq\_redrive\_sqs\_queue\_arn) | The ARN of the SQS queue |
+| <a name="output_dlq_redrive_sqs_queue_id"></a> [dlq\_redrive\_sqs\_queue\_id](#output\_dlq\_redrive\_sqs\_queue\_id) | The URL for the created Amazon SQS queue |
+| <a name="output_dlq_redrive_sqs_queue_name"></a> [dlq\_redrive\_sqs\_queue\_name](#output\_dlq\_redrive\_sqs\_queue\_name) | The name of the SQS queue |
+| <a name="output_sse_encrypted_sqs_queue_arn"></a> [sse\_encrypted\_sqs\_queue\_arn](#output\_sse\_encrypted\_sqs\_queue\_arn) | The ARN of the SQS queue |
+| <a name="output_sse_encrypted_sqs_queue_id"></a> [sse\_encrypted\_sqs\_queue\_id](#output\_sse\_encrypted\_sqs\_queue\_id) | The URL for the created Amazon SQS queue |
+| <a name="output_sse_encrypted_sqs_queue_name"></a> [sse\_encrypted\_sqs\_queue\_name](#output\_sse\_encrypted\_sqs\_queue\_name) | The name of the SQS queue |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
