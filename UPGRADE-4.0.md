@@ -6,7 +6,7 @@ If you find a bug, please open an issue with supporting configuration to reprodu
 
 ## List of backwards incompatible changes
 
-- `var.redrive_policy`, and `var.redrive_policy` data types have changed from `string` to `any` which is a map of values. The conversion from a map to a jsonencoded string is now handled by the module
+- `var.redrive_policy`, and `var.redrive_allow_policy` data types have changed from `string` to `any` which is a map of values. The conversion from a map to a jsonencoded string is now handled by the module
 - `var.name_prefix` has been replaced with `var.use_name_prefix` which is a boolean that will use `var.name` as a prefix
 - `var.policy` has been removed; users can create a policy via the queue policy or dead-letter queue policy which by default uses the associated queue ARN as the `resource` (avoids the chicken vs the egg scenario)
 
