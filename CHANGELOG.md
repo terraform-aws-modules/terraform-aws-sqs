@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file.
 
+## [4.0.0](https://github.com/terraform-aws-modules/terraform-aws-sqs/compare/v3.5.0...v4.0.0) (2023-01-03)
+
+
+### ⚠ BREAKING CHANGES
+
+* Add support for creating an associated dead-letter queue and queue policies (#46)
+
+### Features
+
+* Add support for creating an associated dead-letter queue and queue policies ([#46](https://github.com/terraform-aws-modules/terraform-aws-sqs/issues/46)) ([f49fe2b](https://github.com/terraform-aws-modules/terraform-aws-sqs/commit/f49fe2b35a38ee66abc6315462ee08ebbeec9f8b))
+
+
+### Bug Fixes
+
+* Use a version for  to avoid GitHub API rate limiting on CI workflows ([#47](https://github.com/terraform-aws-modules/terraform-aws-sqs/issues/47)) ([1b622ac](https://github.com/terraform-aws-modules/terraform-aws-sqs/commit/1b622ac470836af6f4cfe4cfdea488fcb0af3440))
+
 ## [3.5.0](https://github.com/terraform-aws-modules/terraform-aws-sqs/compare/v3.4.2...v3.5.0) (2022-11-08)
 
 
