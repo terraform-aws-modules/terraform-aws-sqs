@@ -1,81 +1,159 @@
 provider "aws" {
-  region = "eu-west-1"
+  region = local.region
 }
 
 data "aws_caller_identity" "current" {}
 
-resource "aws_kms_key" "this" {}
-
-module "users_unencrypted" {
-  source = "../../"
-
-  name = "users-unencrypted"
+locals {
+  name   = "ex-${basename(path.cwd)}"
+  region = "eu-west-1"
 
   tags = {
-    Secure = "false"
+    Name       = local.name
+    Example    = "complete"
+    Repository = "github.com/terraform-aws-modules/terraform-aws-sqs"
   }
 }
 
-module "users_encrypted" {
+################################################################################
+# SQS Module
+################################################################################
+
+module "default_sqs" {
   source = "../../"
 
-  name_prefix = "users-encrypted-"
+  name = "${local.name}-default"
 
-  kms_master_key_id = aws_kms_key.this.id
-
-  tags = {
-    Secure = "true"
-  }
+  tags = local.tags
 }
 
-module "users_encrypted_with_sse" {
+module "fifo_sqs" {
   source = "../../"
 
-  name_prefix = "users-encrypted-sse-"
+  # `.fifo` is automatically appended to the name
+  # This also means that `use_name_prefix` cannot be used on FIFO queues
+  name       = local.name
+  fifo_queue = true
 
+  tags = local.tags
+}
+
+module "unencrypted_sqs" {
+  source = "../../"
+
+  name                    = "${local.name}-unencrypted"
+  sqs_managed_sse_enabled = false
+
+  tags = local.tags
+}
+
+module "cmk_encrypted_sqs" {
+  source = "../../"
+
+  name            = "${local.name}-cmk"
+  use_name_prefix = true
+
+  kms_master_key_id                 = aws_kms_key.this.id
+  kms_data_key_reuse_period_seconds = 3600
+
+  tags = local.tags
+}
+
+module "sse_encrypted_sqs" {
+  source = "../../"
+
+  name                    = "${local.name}-sse"
   sqs_managed_sse_enabled = true
 
-  tags = {
-    Secure = "true"
+  # Dead letter queue
+  redrive_policy = {
+    deadLetterTargetArn = module.sse_encrypted_dlq_sqs.queue_arn
+    maxReceiveCount     = 10
   }
+
+  tags = local.tags
 }
 
-
-module "sqs_dlq_allow_redrive_policy" {
+module "sse_encrypted_dlq_sqs" {
   source = "../../"
 
-  name_prefix = "sqs-dlq-allow-redrive-policy-example"
+  # This is a separate queue used as a dead letter queue for the above example
+  # instead of the module creating both the queue and dead letter queue together
 
-  redrive_allow_policy = jsonencode({
-    redrivePermission = "byQueue",
-    sourceQueueArns   = [module.users_encrypted.sqs_queue_arn]
-  })
+  name                    = "${local.name}-sse-dlq"
+  sqs_managed_sse_enabled = true
 
-  tags = {
-    Secure = "true"
+  # Dead letter queue
+  dlq_redrive_allow_policy = {
+    sourceQueueArns = [module.sse_encrypted_sqs.queue_arn]
   }
+
+  tags = local.tags
 }
 
-resource "aws_sqs_queue_policy" "users_unencrypted_policy" {
-  queue_url = module.users_unencrypted.sqs_queue_id
+module "sqs_with_dlq" {
+  source = "../../"
 
-  policy = <<EOF
-  {
-    "Version": "2008-10-17",
-    "Id": " policy",
-    "Statement": [
-      {
-        "Effect": "Allow",
-        "Principal": {
-          "AWS": "arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"
-        },
-        "Action": [
-          "SQS:SendMessage",
-          "SQS:ReceiveMessage"
-        ],
-        "Resource": "${module.users_unencrypted.sqs_queue_arn}"
-      }
-    ]
+  # This creates both the queue and the dead letter queue together
+
+  name = "${local.name}-sqs-with-dlq"
+
+  # Policy
+  # Not required - just showing example
+  create_queue_policy = true
+  queue_policy_statements = {
+    account = {
+      sid = "AccountReadWrite"
+      actions = [
+        "sqs:SendMessage",
+        "sqs:ReceiveMessage",
+      ]
+      principals = [
+        {
+          type        = "AWS"
+          identifiers = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"]
+        }
+      ]
+    }
   }
-  EOF
+
+  # Dead letter queue
+  create_dlq = true
+  redrive_policy = {
+    # default is 5 for this module
+    maxReceiveCount = 10
+  }
+
+  # Dead letter queue policy
+  # Not required - just showing example
+  create_dlq_queue_policy = true
+  dlq_queue_policy_statements = {
+    account = {
+      sid = "AccountReadWrite"
+      actions = [
+        "sqs:SendMessage",
+        "sqs:ReceiveMessage",
+      ]
+      principals = [
+        {
+          type        = "AWS"
+          identifiers = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"]
+        }
+      ]
+    }
+  }
+
+  tags = local.tags
 }
+
+module "disabled_sqs" {
+  source = "../../"
+
+  create = false
+}
+
+################################################################################
+# Supporting resources
+################################################################################
+
+resource "aws_kms_key" "this" {}
