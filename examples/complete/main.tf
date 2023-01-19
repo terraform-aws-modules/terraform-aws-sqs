@@ -35,6 +35,13 @@ module "fifo_sqs" {
   name       = local.name
   fifo_queue = true
 
+  # Dead letter queue
+  create_dlq = true
+  redrive_policy = {
+    # default is 5 for this module
+    maxReceiveCount = 10
+  }
+
   tags = local.tags
 }
 
@@ -55,6 +62,13 @@ module "cmk_encrypted_sqs" {
 
   kms_master_key_id                 = aws_kms_key.this.id
   kms_data_key_reuse_period_seconds = 3600
+
+  # Dead letter queue
+  create_dlq = true
+  redrive_policy = {
+    # default is 5 for this module
+    maxReceiveCount = 10
+  }
 
   tags = local.tags
 }
