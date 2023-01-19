@@ -2,6 +2,10 @@
 # Queue
 ################################################################################
 
+locals {
+  name = try(trimsuffix(var.name, ".fifo"), "")
+}
+
 resource "aws_sqs_queue" "this" {
   count = var.create ? 1 : 0
 
@@ -14,8 +18,8 @@ resource "aws_sqs_queue" "this" {
   kms_master_key_id                 = var.kms_master_key_id
   max_message_size                  = var.max_message_size
   message_retention_seconds         = var.message_retention_seconds
-  name                              = var.use_name_prefix ? null : (var.fifo_queue ? "${trimsuffix(var.name, ".fifo")}.fifo" : var.name)
-  name_prefix                       = var.use_name_prefix ? "${var.name}-" : null
+  name                              = var.use_name_prefix ? null : (var.fifo_queue ? "${local.name}.fifo" : local.name)
+  name_prefix                       = var.use_name_prefix ? "${local.name}-" : null
   receive_wait_time_seconds         = var.receive_wait_time_seconds
   sqs_managed_sse_enabled           = var.kms_master_key_id != null ? null : var.sqs_managed_sse_enabled
   visibility_timeout_seconds        = var.visibility_timeout_seconds
@@ -113,9 +117,11 @@ resource "aws_sqs_queue_redrive_policy" "dlq" {
 ################################################################################
 
 locals {
-  inter_dlq_name = try(coalesce(var.dlq_name, "${var.name}-dlq"), "")
-  dlq_name       = var.fifo_queue ? "${trimsuffix(local.inter_dlq_name, ".fifo")}.fifo" : local.inter_dlq_name
+  stripped_dlq_name = try(trimsuffix(var.dlq_name, ".fifo"), "")
+  inter_dlq_name    = try(coalesce(local.stripped_dlq_name, "${local.name}-dlq"), "")
+  dlq_name          = var.fifo_queue ? "${local.inter_dlq_name}.fifo" : local.inter_dlq_name
 
+  dlq_kms_master_key_id       = try(coalesce(var.dlq_kms_master_key_id, var.kms_master_key_id), null)
   dlq_sqs_managed_sse_enabled = coalesce(var.dlq_sqs_managed_sse_enabled, var.sqs_managed_sse_enabled)
 }
 
@@ -129,13 +135,13 @@ resource "aws_sqs_queue" "dlq" {
   fifo_queue                        = var.fifo_queue
   fifo_throughput_limit             = var.fifo_throughput_limit
   kms_data_key_reuse_period_seconds = try(coalesce(var.dlq_kms_data_key_reuse_period_seconds, var.kms_data_key_reuse_period_seconds), null)
-  kms_master_key_id                 = local.dlq_sqs_managed_sse_enabled ? null : try(coalesce(var.dlq_kms_master_key_id, var.kms_master_key_id), null)
+  kms_master_key_id                 = local.dlq_kms_master_key_id
   max_message_size                  = var.max_message_size
   message_retention_seconds         = try(coalesce(var.dlq_message_retention_seconds, var.message_retention_seconds), null)
   name                              = var.use_name_prefix ? null : local.dlq_name
   name_prefix                       = var.use_name_prefix ? "${local.dlq_name}-" : null
   receive_wait_time_seconds         = try(coalesce(var.dlq_receive_wait_time_seconds, var.receive_wait_time_seconds), null)
-  sqs_managed_sse_enabled           = local.dlq_sqs_managed_sse_enabled
+  sqs_managed_sse_enabled           = local.dlq_kms_master_key_id != null ? null : local.dlq_sqs_managed_sse_enabled
   visibility_timeout_seconds        = try(coalesce(var.dlq_visibility_timeout_seconds, var.visibility_timeout_seconds), null)
 
   tags = merge(var.tags, var.dlq_tags)
