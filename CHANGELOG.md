@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+### [4.0.1](https://github.com/terraform-aws-modules/terraform-aws-sqs/compare/v4.0.0...v4.0.1) (2023-01-19)
+
+
+### Bug Fixes
+
+* Correct `.fifo` postfix and KMS key ID usage on dead letter queue ([#51](https://github.com/terraform-aws-modules/terraform-aws-sqs/issues/51)) ([2587a70](https://github.com/terraform-aws-modules/terraform-aws-sqs/commit/2587a70ab1fc90793a9c59dadceca806f3267974))
+
 ## [4.0.0](https://github.com/terraform-aws-modules/terraform-aws-sqs/compare/v3.5.0...v4.0.0) (2023-01-03)
 
 
