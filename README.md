@@ -119,11 +119,11 @@ module "sqs" {
         }
       ]
 
-      condition = {
+      conditions = [{
         test     = "ArnEquals"
         variable = "aws:SourceArn"
         values   = [module.sns.topic_arn]
-      }
+      }]
     }
   }
 
