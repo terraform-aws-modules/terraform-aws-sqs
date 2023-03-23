@@ -81,7 +81,7 @@ module "sns" {
         identifiers = ["*"]
       }]
 
-      conditions = [{
+      condition = [{
         test     = "StringLike"
         variable = "sns:Endpoint"
         values   = [module.sqs.queue_arn]
@@ -119,7 +119,7 @@ module "sqs" {
         }
       ]
 
-      conditions = [{
+      condition = [{
         test     = "ArnEquals"
         variable = "aws:SourceArn"
         values   = [module.sns.topic_arn]
