@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+### [4.0.2](https://github.com/terraform-aws-modules/terraform-aws-sqs/compare/v4.0.1...v4.0.2) (2023-07-18)
+
+
+### Bug Fixes
+
+* Disabled adding .fifo suffix to DLQ name if use_name_prefix ([#57](https://github.com/terraform-aws-modules/terraform-aws-sqs/issues/57)) ([c08f511](https://github.com/terraform-aws-modules/terraform-aws-sqs/commit/c08f51148163affe2657d091584a66612f2bd7c1))
+
 ### [4.0.1](https://github.com/terraform-aws-modules/terraform-aws-sqs/compare/v4.0.0...v4.0.1) (2023-01-19)
 
 
