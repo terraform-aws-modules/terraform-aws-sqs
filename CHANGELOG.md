@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [4.1.0](https://github.com/terraform-aws-modules/terraform-aws-sqs/compare/v4.0.2...v4.1.0) (2023-10-21)
+
+
+### Features
+
+* Add option to disable creation of redrive policy for the dead letter queue ([#60](https://github.com/terraform-aws-modules/terraform-aws-sqs/issues/60)) ([c4db9a6](https://github.com/terraform-aws-modules/terraform-aws-sqs/commit/c4db9a6864180a8b8cce2c28ad45798bc7e2a06a))
+
 ### [4.0.2](https://github.com/terraform-aws-modules/terraform-aws-sqs/compare/v4.0.1...v4.0.2) (2023-07-18)
 
 
