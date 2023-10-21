@@ -137,6 +137,7 @@ module "sqs_with_dlq" {
     # default is 5 for this module
     maxReceiveCount = 10
   }
+  create_dlq_redrive_allow_policy = false
 
   # Dead letter queue policy
   # Not required - just showing example

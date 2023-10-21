@@ -202,6 +202,7 @@ No modules.
 | <a name="input_create"></a> [create](#input\_create) | Whether to create SQS queue | `bool` | `true` | no |
 | <a name="input_create_dlq"></a> [create\_dlq](#input\_create\_dlq) | Determines whether to create SQS dead letter queue | `bool` | `false` | no |
 | <a name="input_create_dlq_queue_policy"></a> [create\_dlq\_queue\_policy](#input\_create\_dlq\_queue\_policy) | Whether to create SQS queue policy | `bool` | `false` | no |
+| <a name="input_create_dlq_redrive_allow_policy"></a> [create\_dlq\_redrive\_allow\_policy](#input\_create\_dlq\_redrive\_allow\_policy) | Determines whether to create a redrive allow policy for the dead letter queue. | `bool` | `true` | no |
 | <a name="input_create_queue_policy"></a> [create\_queue\_policy](#input\_create\_queue\_policy) | Whether to create SQS queue policy | `bool` | `false` | no |
 | <a name="input_deduplication_scope"></a> [deduplication\_scope](#input\_deduplication\_scope) | Specifies whether message deduplication occurs at the message group or queue level | `string` | `null` | no |
 | <a name="input_delay_seconds"></a> [delay\_seconds](#input\_delay\_seconds) | The time in seconds that the delivery of all messages in the queue will be delayed. An integer from 0 to 900 (15 minutes) | `number` | `null` | no |
