@@ -6,7 +6,7 @@ data "aws_caller_identity" "current" {}
 
 locals {
   name   = "ex-${basename(path.cwd)}"
-  region = "us-east-1"
+  region = "eu-west-1"
 
   tags = {
     Name       = local.name
