@@ -218,7 +218,7 @@ resource "aws_sqs_queue_redrive_allow_policy" "this" {
 }
 
 resource "aws_sqs_queue_redrive_allow_policy" "dlq" {
-  count = var.create && var.create_dlq ? 1 : 0
+  count = var.create && var.create_dlq && var.create_dlq_redrive_allow_policy ? 1 : 0
 
   queue_url = aws_sqs_queue.dlq[0].url
   redrive_allow_policy = jsonencode(merge(

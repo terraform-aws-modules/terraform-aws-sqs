@@ -34,6 +34,7 @@ module "wrapper" {
   dlq_message_retention_seconds         = try(each.value.dlq_message_retention_seconds, var.defaults.dlq_message_retention_seconds, null)
   dlq_name                              = try(each.value.dlq_name, var.defaults.dlq_name, null)
   dlq_receive_wait_time_seconds         = try(each.value.dlq_receive_wait_time_seconds, var.defaults.dlq_receive_wait_time_seconds, null)
+  create_dlq_redrive_allow_policy       = try(each.value.create_dlq_redrive_allow_policy, var.defaults.create_dlq_redrive_allow_policy, true)
   dlq_redrive_allow_policy              = try(each.value.dlq_redrive_allow_policy, var.defaults.dlq_redrive_allow_policy, {})
   dlq_sqs_managed_sse_enabled           = try(each.value.dlq_sqs_managed_sse_enabled, var.defaults.dlq_sqs_managed_sse_enabled, true)
   dlq_visibility_timeout_seconds        = try(each.value.dlq_visibility_timeout_seconds, var.defaults.dlq_visibility_timeout_seconds, null)

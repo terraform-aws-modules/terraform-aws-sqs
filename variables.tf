@@ -196,6 +196,12 @@ variable "dlq_receive_wait_time_seconds" {
   default     = null
 }
 
+variable "create_dlq_redrive_allow_policy" {
+  description = "Determines whether to create a redrive allow policy for the dead letter queue."
+  type        = bool
+  default     = true
+}
+
 variable "dlq_redrive_allow_policy" {
   description = "The JSON policy to set up the Dead Letter Queue redrive permission, see AWS docs."
   type        = any

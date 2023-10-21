@@ -6,7 +6,7 @@ data "aws_caller_identity" "current" {}
 
 locals {
   name   = "ex-${basename(path.cwd)}"
-  region = "eu-west-1"
+  region = "us-east-1"
 
   tags = {
     Name       = local.name
@@ -137,6 +137,7 @@ module "sqs_with_dlq" {
     # default is 5 for this module
     maxReceiveCount = 10
   }
+  create_dlq_redrive_allow_policy = false
 
   # Dead letter queue policy
   # Not required - just showing example
