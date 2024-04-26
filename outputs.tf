@@ -12,6 +12,11 @@ output "queue_arn" {
   value       = try(aws_sqs_queue.this[0].arn, null)
 }
 
+output "queue_arn_static" {
+  description = "The ARN of the SQS queue. Use this to avoid cycle errors between resources (e.g., Step Functions)"
+  value       = var.create && !var.use_name_prefix ? "arn:aws:sqs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:${local.name}" : ""
+}
+
 output "queue_url" {
   description = "Same as `queue_id`: The URL for the created Amazon SQS queue"
   value       = try(aws_sqs_queue.this[0].url, null)
@@ -34,6 +39,11 @@ output "dead_letter_queue_id" {
 output "dead_letter_queue_arn" {
   description = "The ARN of the SQS queue"
   value       = try(aws_sqs_queue.dlq[0].arn, null)
+}
+
+output "dead_letter_queue_arn_static" {
+  description = "The ARN of the SQS queue. Use this to avoid cycle errors between resources (e.g., Step Functions)"
+  value       = var.create && var.create_dlq && !var.use_name_prefix ? "arn:aws:sqs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:${local.dlq_name}" : ""
 }
 
 output "dead_letter_queue_url" {
