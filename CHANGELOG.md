@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [4.2.0](https://github.com/terraform-aws-modules/terraform-aws-sqs/compare/v4.1.1...v4.2.0) (2024-04-26)
+
+
+### Features
+
+* Added queue_arn_static and dead_letter_queue_arn_static outputs ([#62](https://github.com/terraform-aws-modules/terraform-aws-sqs/issues/62)) ([cd54bb0](https://github.com/terraform-aws-modules/terraform-aws-sqs/commit/cd54bb0737280c6b3f93be5ca12d69906fa3a9f7))
+
 ## [4.1.1](https://github.com/terraform-aws-modules/terraform-aws-sqs/compare/v4.1.0...v4.1.1) (2024-03-06)
 
 
