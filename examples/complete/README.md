@@ -44,6 +44,7 @@ Note that this example may create resources which cost money. Run `terraform des
 | <a name="module_default_sqs"></a> [default\_sqs](#module\_default\_sqs) | ../../ | n/a |
 | <a name="module_disabled_sqs"></a> [disabled\_sqs](#module\_disabled\_sqs) | ../../ | n/a |
 | <a name="module_fifo_sqs"></a> [fifo\_sqs](#module\_fifo\_sqs) | ../../ | n/a |
+| <a name="module_sqs_string_max_receive_count"></a> [sqs\_string\_max\_receive\_count](#module\_sqs\_string\_max\_receive\_count) | ../../ | n/a |
 | <a name="module_sqs_with_dlq"></a> [sqs\_with\_dlq](#module\_sqs\_with\_dlq) | ../../ | n/a |
 | <a name="module_sse_encrypted_dlq_sqs"></a> [sse\_encrypted\_dlq\_sqs](#module\_sse\_encrypted\_dlq\_sqs) | ../../ | n/a |
 | <a name="module_sse_encrypted_sqs"></a> [sse\_encrypted\_sqs](#module\_sse\_encrypted\_sqs) | ../../ | n/a |

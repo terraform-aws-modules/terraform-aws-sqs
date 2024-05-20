@@ -9,7 +9,7 @@ data "aws_caller_identity" "current" {}
 locals {
   name = try(trimsuffix(var.name, ".fifo"), "")
   redrive_policy = merge(var.redrive_policy, {
-    maxReceiveCount     = tonumber(var.redrive_policy.maxReceiveCount)
+    maxReceiveCount = tonumber(var.redrive_policy.maxReceiveCount)
   })
 }
 

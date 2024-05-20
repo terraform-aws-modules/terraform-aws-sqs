@@ -45,6 +45,17 @@ module "fifo_sqs" {
   tags = local.tags
 }
 
+module "sqs_string_max_receive_count" {
+  source = "../../"
+
+  name = "${local.name}-default"
+
+  redrive_policy = {
+    maxReceiveCount = "10"
+  }
+  tags = local.tags
+}
+
 module "unencrypted_sqs" {
   source = "../../"
 
