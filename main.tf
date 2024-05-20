@@ -8,6 +8,9 @@ data "aws_caller_identity" "current" {}
 
 locals {
   name = try(trimsuffix(var.name, ".fifo"), "")
+  redrive_policy = merge(var.redrive_policy, {
+    maxReceiveCount     = tonumber(var.redrive_policy.maxReceiveCount)
+  })
 }
 
 resource "aws_sqs_queue" "this" {
@@ -98,7 +101,7 @@ resource "aws_sqs_queue_redrive_policy" "this" {
   count = var.create && !var.create_dlq && length(var.redrive_policy) > 0 ? 1 : 0
 
   queue_url      = aws_sqs_queue.this[0].url
-  redrive_policy = jsonencode(var.redrive_policy)
+  redrive_policy = jsonencode(local.redrive_policy)
 }
 
 resource "aws_sqs_queue_redrive_policy" "dlq" {
@@ -111,7 +114,7 @@ resource "aws_sqs_queue_redrive_policy" "dlq" {
         deadLetterTargetArn = aws_sqs_queue.dlq[0].arn
         maxReceiveCount     = 5
       },
-      var.redrive_policy
+      local.redrive_policy
     )
   )
 }
