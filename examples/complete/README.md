@@ -22,7 +22,7 @@ $ terraform apply
 
 Note that this example may create resources which cost money. Run `terraform destroy` when you don't need these resources.
 
-<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 | Name | Version |
@@ -128,4 +128,4 @@ No inputs.
 | <a name="output_unencrypted_sqs_queue_id"></a> [unencrypted\_sqs\_queue\_id](#output\_unencrypted\_sqs\_queue\_id) | The URL for the created Amazon SQS queue |
 | <a name="output_unencrypted_sqs_queue_name"></a> [unencrypted\_sqs\_queue\_name](#output\_unencrypted\_sqs\_queue\_name) | The name of the SQS queue |
 | <a name="output_unencrypted_sqs_queue_url"></a> [unencrypted\_sqs\_queue\_url](#output\_unencrypted\_sqs\_queue\_url) | Same as `queue_id`: The URL for the created Amazon SQS queue |
-<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- END_TF_DOCS -->
