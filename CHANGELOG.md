@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [4.2.1](https://github.com/terraform-aws-modules/terraform-aws-sqs/compare/v4.2.0...v4.2.1) (2024-10-11)
+
+
+### Bug Fixes
+
+* Update CI workflow versions to latest ([#65](https://github.com/terraform-aws-modules/terraform-aws-sqs/issues/65)) ([62bbf21](https://github.com/terraform-aws-modules/terraform-aws-sqs/commit/62bbf21af92f39755aa864fda28b771328bcc5c5))
+
 ## [4.2.0](https://github.com/terraform-aws-modules/terraform-aws-sqs/compare/v4.1.1...v4.2.0) (2024-04-26)
 
 
