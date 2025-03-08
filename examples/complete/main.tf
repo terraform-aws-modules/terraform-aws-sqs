@@ -161,6 +161,68 @@ module "sqs_with_dlq" {
   tags = local.tags
 }
 
+module "sqs_with_fifo_dlq" {
+  source = "../../"
+
+  # This creates both the queue and the dead letter queue together
+
+  name       = "${local.name}-sqs-with-fifo-dlq"
+  fifo_queue = true
+
+  deduplication_scope   = "messageGroup"
+  fifo_throughput_limit = "perMessageGroupId"
+
+  # Policy
+  # Not required - just showing example
+  create_queue_policy = true
+  queue_policy_statements = {
+    account = {
+      sid = "AccountReadWrite"
+      actions = [
+        "sqs:SendMessage",
+        "sqs:ReceiveMessage",
+      ]
+      principals = [
+        {
+          type        = "AWS"
+          identifiers = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"]
+        }
+      ]
+    }
+  }
+
+  # Dead letter queue
+  create_dlq = true
+  redrive_policy = {
+    # default is 5 for this module
+    maxReceiveCount = 10
+  }
+  create_dlq_redrive_allow_policy = false
+
+  # Dead letter queue policy
+  # Not required - just showing example
+  create_dlq_queue_policy = true
+  dlq_queue_policy_statements = {
+    account = {
+      sid = "AccountReadWrite"
+      actions = [
+        "sqs:SendMessage",
+        "sqs:ReceiveMessage",
+      ]
+      principals = [
+        {
+          type        = "AWS"
+          identifiers = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"]
+        }
+      ]
+    }
+  }
+  dlq_deduplication_scope   = "queue"
+  dlq_fifo_throughput_limit = "perQueue"
+
+  tags = local.tags
+}
+
 module "disabled_sqs" {
   source = "../../"
 

@@ -285,6 +285,47 @@ output "sqs_with_dlq_dlq_name" {
   value       = module.sqs_with_dlq.dead_letter_queue_name
 }
 
+# With FIFO Dead Letter Queue
+output "sqs_with_fifo_dlq_queue_id" {
+  description = "The URL for the created Amazon SQS queue"
+  value       = module.sqs_with_fifo_dlq.queue_id
+}
+
+output "sqs_with_fifo_dlq_queue_arn" {
+  description = "The ARN of the SQS queue"
+  value       = module.sqs_with_fifo_dlq.queue_arn
+}
+
+output "sqs_with_fifo_dlq_queue_url" {
+  description = "Same as `queue_id`: The URL for the created Amazon SQS queue"
+  value       = module.sqs_with_fifo_dlq.queue_url
+}
+
+output "sqs_with_fifo_dlq_queue_name" {
+  description = "The name of the SQS queue"
+  value       = module.sqs_with_fifo_dlq.queue_name
+}
+
+output "sqs_with_fifo_dlq_dlq_id" {
+  description = "The URL for the created Amazon SQS queue"
+  value       = module.sqs_with_fifo_dlq.dead_letter_queue_id
+}
+
+output "sqs_with_fifo_dlq_dlq_arn" {
+  description = "The ARN of the SQS queue"
+  value       = module.sqs_with_fifo_dlq.dead_letter_queue_arn
+}
+
+output "sqs_with_fifo_dlq_dlq_url" {
+  description = "Same as `dead_letter_queue_id`: The URL for the created Amazon SQS queue"
+  value       = module.sqs_with_fifo_dlq.dead_letter_queue_url
+}
+
+output "sqs_with_fifo_dlq_dlq_name" {
+  description = "The name of the SQS queue"
+  value       = module.sqs_with_fifo_dlq.dead_letter_queue_name
+}
+
 # Disabled
 output "disabled_sqs_queue_id" {
   description = "The URL for the created Amazon SQS queue"
