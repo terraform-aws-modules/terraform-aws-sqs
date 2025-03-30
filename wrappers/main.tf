@@ -14,6 +14,7 @@ module "wrapper" {
   dlq_content_based_deduplication       = try(each.value.dlq_content_based_deduplication, var.defaults.dlq_content_based_deduplication, null)
   dlq_deduplication_scope               = try(each.value.dlq_deduplication_scope, var.defaults.dlq_deduplication_scope, null)
   dlq_delay_seconds                     = try(each.value.dlq_delay_seconds, var.defaults.dlq_delay_seconds, null)
+  dlq_fifo_throughput_limit             = try(each.value.dlq_fifo_throughput_limit, var.defaults.dlq_fifo_throughput_limit, null)
   dlq_kms_data_key_reuse_period_seconds = try(each.value.dlq_kms_data_key_reuse_period_seconds, var.defaults.dlq_kms_data_key_reuse_period_seconds, null)
   dlq_kms_master_key_id                 = try(each.value.dlq_kms_master_key_id, var.defaults.dlq_kms_master_key_id, null)
   dlq_message_retention_seconds         = try(each.value.dlq_message_retention_seconds, var.defaults.dlq_message_retention_seconds, null)

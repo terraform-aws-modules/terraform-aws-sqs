@@ -214,6 +214,12 @@ variable "dlq_sqs_managed_sse_enabled" {
   default     = true
 }
 
+variable "dlq_fifo_throughput_limit" {
+  description = "Specifies whether the Dead Letter Queue FIFO queue throughput quota applies to the entire queue or per message group"
+  type        = string
+  default     = null
+}
+
 variable "dlq_visibility_timeout_seconds" {
   description = "The visibility timeout for the queue. An integer from 0 to 43200 (12 hours)"
   type        = number

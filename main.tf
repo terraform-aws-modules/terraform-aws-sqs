@@ -137,7 +137,7 @@ resource "aws_sqs_queue" "dlq" {
   delay_seconds               = try(coalesce(var.dlq_delay_seconds, var.delay_seconds), null)
   # If source queue is FIFO, DLQ must also be FIFO and vice versa
   fifo_queue                        = var.fifo_queue
-  fifo_throughput_limit             = var.fifo_throughput_limit
+  fifo_throughput_limit             = try(coalesce(var.dlq_fifo_throughput_limit, var.fifo_throughput_limit), null)
   kms_data_key_reuse_period_seconds = try(coalesce(var.dlq_kms_data_key_reuse_period_seconds, var.kms_data_key_reuse_period_seconds), null)
   kms_master_key_id                 = local.dlq_kms_master_key_id
   max_message_size                  = var.max_message_size
