@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [4.3.0](https://github.com/terraform-aws-modules/terraform-aws-sqs/compare/v4.2.1...v4.3.0) (2025-03-30)
+
+
+### Features
+
+* Add support for customizing DLQ FIFO throughput limit ([#70](https://github.com/terraform-aws-modules/terraform-aws-sqs/issues/70)) ([59f2551](https://github.com/terraform-aws-modules/terraform-aws-sqs/commit/59f2551f09058689291543f8be96453aeeab4973))
+
 ## [4.2.1](https://github.com/terraform-aws-modules/terraform-aws-sqs/compare/v4.2.0...v4.2.1) (2024-10-11)
 
 
