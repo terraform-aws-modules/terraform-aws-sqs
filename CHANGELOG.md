@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [4.3.1](https://github.com/terraform-aws-modules/terraform-aws-sqs/compare/v4.3.0...v4.3.1) (2025-04-09)
+
+
+### Bug Fixes
+
+* Updated pre-commit a bit ([#73](https://github.com/terraform-aws-modules/terraform-aws-sqs/issues/73)) ([0ffb4ce](https://github.com/terraform-aws-modules/terraform-aws-sqs/commit/0ffb4ce82e32dd119e588b61a6cb8f299e543d76))
+
 ## [4.3.0](https://github.com/terraform-aws-modules/terraform-aws-sqs/compare/v4.2.1...v4.3.0) (2025-03-30)
 
 
