@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [5.0.0](https://github.com/terraform-aws-modules/terraform-aws-sqs/compare/v4.3.1...v5.0.0) (2025-06-25)
+
+
+### ⚠ BREAKING CHANGES
+
+* Upgrade AWS provider and min required Terraform version to 6.0 and 1.5.7 respectively (#75)
+
+### Features
+
+* Upgrade AWS provider and min required Terraform version to 6.0 and 1.5.7 respectively ([#75](https://github.com/terraform-aws-modules/terraform-aws-sqs/issues/75)) ([0dfd32b](https://github.com/terraform-aws-modules/terraform-aws-sqs/commit/0dfd32bff3f1efefdffc2997989a6c24f8b006b4))
+
 ## [4.3.1](https://github.com/terraform-aws-modules/terraform-aws-sqs/compare/v4.3.0...v4.3.1) (2025-04-09)
 
 
