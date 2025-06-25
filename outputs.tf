@@ -14,7 +14,7 @@ output "queue_arn" {
 
 output "queue_arn_static" {
   description = "The ARN of the SQS queue. Use this to avoid cycle errors between resources (e.g., Step Functions)"
-  value       = var.create && !var.use_name_prefix ? "arn:${data.aws_partition.current.partition}:sqs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:${local.name}" : ""
+  value       = var.create && !var.use_name_prefix ? "arn:${data.aws_partition.current.partition}:sqs:${data.aws_region.current.region}:${data.aws_caller_identity.current.account_id}:${local.name}" : ""
 }
 
 output "queue_url" {
@@ -43,7 +43,7 @@ output "dead_letter_queue_arn" {
 
 output "dead_letter_queue_arn_static" {
   description = "The ARN of the SQS queue. Use this to avoid cycle errors between resources (e.g., Step Functions)"
-  value       = var.create && var.create_dlq && !var.use_name_prefix ? "arn:${data.aws_partition.current.partition}:sqs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:${local.dlq_name}" : ""
+  value       = var.create && var.create_dlq && !var.use_name_prefix ? "arn:${data.aws_partition.current.partition}:sqs:${data.aws_region.current.region}:${data.aws_caller_identity.current.account_id}:${local.dlq_name}" : ""
 }
 
 output "dead_letter_queue_url" {
