@@ -4,6 +4,8 @@ provider "aws" {
 
 data "aws_caller_identity" "current" {}
 
+data "aws_partition" "current" {}
+
 locals {
   name   = "ex-${basename(path.cwd)}"
   region = "eu-west-1"
@@ -125,7 +127,7 @@ module "sqs_with_dlq" {
       principals = [
         {
           type        = "AWS"
-          identifiers = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"]
+          identifiers = ["arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:root"]
         }
       ]
     }
@@ -152,7 +154,7 @@ module "sqs_with_dlq" {
       principals = [
         {
           type        = "AWS"
-          identifiers = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"]
+          identifiers = ["arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:root"]
         }
       ]
     }

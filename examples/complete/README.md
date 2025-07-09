@@ -22,19 +22,19 @@ $ terraform apply
 
 Note that this example may create resources which cost money. Run `terraform destroy` when you don't need these resources.
 
-<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.36 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.5.7 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.36 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 6.0 |
 
 ## Modules
 
@@ -55,6 +55,7 @@ Note that this example may create resources which cost money. Run `terraform des
 |------|------|
 | [aws_kms_key.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kms_key) | resource |
 | [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
+| [aws_partition.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/partition) | data source |
 
 ## Inputs
 
@@ -128,4 +129,4 @@ No inputs.
 | <a name="output_unencrypted_sqs_queue_id"></a> [unencrypted\_sqs\_queue\_id](#output\_unencrypted\_sqs\_queue\_id) | The URL for the created Amazon SQS queue |
 | <a name="output_unencrypted_sqs_queue_name"></a> [unencrypted\_sqs\_queue\_name](#output\_unencrypted\_sqs\_queue\_name) | The name of the SQS queue |
 | <a name="output_unencrypted_sqs_queue_url"></a> [unencrypted\_sqs\_queue\_url](#output\_unencrypted\_sqs\_queue\_url) | Same as `queue_id`: The URL for the created Amazon SQS queue |
-<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- END_TF_DOCS -->

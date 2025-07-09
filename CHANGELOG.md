@@ -2,6 +2,38 @@
 
 All notable changes to this project will be documented in this file.
 
+## [5.0.0](https://github.com/terraform-aws-modules/terraform-aws-sqs/compare/v4.3.1...v5.0.0) (2025-06-25)
+
+
+### ⚠ BREAKING CHANGES
+
+* Upgrade AWS provider and min required Terraform version to 6.0 and 1.5.7 respectively (#75)
+
+### Features
+
+* Upgrade AWS provider and min required Terraform version to 6.0 and 1.5.7 respectively ([#75](https://github.com/terraform-aws-modules/terraform-aws-sqs/issues/75)) ([0dfd32b](https://github.com/terraform-aws-modules/terraform-aws-sqs/commit/0dfd32bff3f1efefdffc2997989a6c24f8b006b4))
+
+## [4.3.1](https://github.com/terraform-aws-modules/terraform-aws-sqs/compare/v4.3.0...v4.3.1) (2025-04-09)
+
+
+### Bug Fixes
+
+* Updated pre-commit a bit ([#73](https://github.com/terraform-aws-modules/terraform-aws-sqs/issues/73)) ([0ffb4ce](https://github.com/terraform-aws-modules/terraform-aws-sqs/commit/0ffb4ce82e32dd119e588b61a6cb8f299e543d76))
+
+## [4.3.0](https://github.com/terraform-aws-modules/terraform-aws-sqs/compare/v4.2.1...v4.3.0) (2025-03-30)
+
+
+### Features
+
+* Add support for customizing DLQ FIFO throughput limit ([#70](https://github.com/terraform-aws-modules/terraform-aws-sqs/issues/70)) ([59f2551](https://github.com/terraform-aws-modules/terraform-aws-sqs/commit/59f2551f09058689291543f8be96453aeeab4973))
+
+## [4.2.1](https://github.com/terraform-aws-modules/terraform-aws-sqs/compare/v4.2.0...v4.2.1) (2024-10-11)
+
+
+### Bug Fixes
+
+* Update CI workflow versions to latest ([#65](https://github.com/terraform-aws-modules/terraform-aws-sqs/issues/65)) ([62bbf21](https://github.com/terraform-aws-modules/terraform-aws-sqs/commit/62bbf21af92f39755aa864fda28b771328bcc5c5))
+
 ## [4.2.0](https://github.com/terraform-aws-modules/terraform-aws-sqs/compare/v4.1.1...v4.2.0) (2024-04-26)
 
 
