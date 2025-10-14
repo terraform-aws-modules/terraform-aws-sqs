@@ -51,7 +51,7 @@ variable "kms_master_key_id" {
 }
 
 variable "max_message_size" {
-  description = "The limit of how many bytes a message can contain before Amazon SQS rejects it. An integer from 1024 bytes (1 KiB) up to 262144 bytes (256 KiB)"
+  description = "The limit of how many bytes a message can contain before Amazon SQS rejects it. An integer from 1024 bytes (1 KiB) up to 1048576 bytes (1024 KiB). The default for this attribute is 262144 (256 KiB)."
   type        = number
   default     = null
 }
