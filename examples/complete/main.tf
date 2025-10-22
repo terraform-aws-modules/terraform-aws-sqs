@@ -183,7 +183,7 @@ module "kms" {
   # Policy
   key_statements = [
     {
-      sid = "SNS"
+      sid = "SQS"
       actions = [
         "kms:GenerateDataKey*",
         "kms:Decrypt"
