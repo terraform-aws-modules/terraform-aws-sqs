@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [5.1.0](https://github.com/terraform-aws-modules/terraform-aws-sqs/compare/v5.0.1...v5.1.0) (2025-10-22)
+
+### Features
+
+* Add support for provider `region` resource argument ([#80](https://github.com/terraform-aws-modules/terraform-aws-sqs/issues/80)) ([8d88462](https://github.com/terraform-aws-modules/terraform-aws-sqs/commit/8d884620e57a78d938eb0c7ba84a5ce6cf5369de))
+
 ## [5.0.1](https://github.com/terraform-aws-modules/terraform-aws-sqs/compare/v5.0.0...v5.0.1) (2025-10-21)
 
 ### Bug Fixes
