@@ -4,6 +4,18 @@ variable "create" {
   default     = true
 }
 
+variable "region" {
+  description = "Region where the resource(s) will be managed. Defaults to the Region set in the provider configuration"
+  type        = string
+  default     = null
+}
+
+variable "tags" {
+  description = "A mapping of tags to assign to all resources"
+  type        = map(string)
+  default     = {}
+}
+
 ################################################################################
 # Queue
 ################################################################################
@@ -51,7 +63,7 @@ variable "kms_master_key_id" {
 }
 
 variable "max_message_size" {
-  description = "The limit of how many bytes a message can contain before Amazon SQS rejects it. An integer from 1024 bytes (1 KiB) up to 1048576 bytes (1024 KiB). The default for this attribute is 262144 (256 KiB)."
+  description = "The limit of how many bytes a message can contain before Amazon SQS rejects it. An integer from 1024 bytes (1 KiB) up to 1048576 bytes (1024 KiB). The default for this attribute is 262144 (256 KiB)"
   type        = number
   default     = null
 }
@@ -81,7 +93,7 @@ variable "receive_wait_time_seconds" {
 }
 
 variable "redrive_allow_policy" {
-  description = "The JSON policy to set up the Dead Letter Queue redrive permission, see AWS docs."
+  description = "The JSON policy to set up the Dead Letter Queue redrive permission, see AWS docs"
   type        = any
   default     = {}
 }
@@ -102,12 +114,6 @@ variable "visibility_timeout_seconds" {
   description = "The visibility timeout for the queue. An integer from 0 to 43200 (12 hours)"
   type        = number
   default     = null
-}
-
-variable "tags" {
-  description = "A mapping of tags to assign to all resources"
-  type        = map(string)
-  default     = {}
 }
 
 ################################################################################
@@ -134,8 +140,34 @@ variable "override_queue_policy_documents" {
 
 variable "queue_policy_statements" {
   description = "A map of IAM policy [statements](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document#statement) for custom permission usage"
-  type        = any
-  default     = {}
+  type = map(object({
+    sid           = optional(string)
+    actions       = optional(list(string))
+    not_actions   = optional(list(string))
+    effect        = optional(string, "Allow")
+    resources     = optional(list(string))
+    not_resources = optional(list(string))
+    principals = optional(list(object({
+      type        = string
+      identifiers = list(string)
+    })))
+    not_principals = optional(list(object({
+      type        = string
+      identifiers = list(string)
+    })))
+    condition = optional(list(object({
+      test     = string
+      variable = string
+      values   = list(string)
+    })))
+    # TODO - remove at next breaking change
+    conditions = optional(list(object({
+      test     = string
+      variable = string
+      values   = list(string)
+    })))
+  }))
+  default = null
 }
 
 ################################################################################
@@ -197,13 +229,13 @@ variable "dlq_receive_wait_time_seconds" {
 }
 
 variable "create_dlq_redrive_allow_policy" {
-  description = "Determines whether to create a redrive allow policy for the dead letter queue."
+  description = "Determines whether to create a redrive allow policy for the dead letter queue"
   type        = bool
   default     = true
 }
 
 variable "dlq_redrive_allow_policy" {
-  description = "The JSON policy to set up the Dead Letter Queue redrive permission, see AWS docs."
+  description = "The JSON policy to set up the Dead Letter Queue redrive permission, see AWS docs"
   type        = any
   default     = {}
 }
@@ -256,6 +288,32 @@ variable "override_dlq_queue_policy_documents" {
 
 variable "dlq_queue_policy_statements" {
   description = "A map of IAM policy [statements](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document#statement) for custom permission usage"
-  type        = any
-  default     = {}
+  type = map(object({
+    sid           = optional(string)
+    actions       = optional(list(string))
+    not_actions   = optional(list(string))
+    effect        = optional(string, "Allow")
+    resources     = optional(list(string))
+    not_resources = optional(list(string))
+    principals = optional(list(object({
+      type        = string
+      identifiers = list(string)
+    })))
+    not_principals = optional(list(object({
+      type        = string
+      identifiers = list(string)
+    })))
+    condition = optional(list(object({
+      test     = string
+      variable = string
+      values   = list(string)
+    })))
+    # TODO - remove at next breaking change
+    conditions = optional(list(object({
+      test     = string
+      variable = string
+      values   = list(string)
+    })))
+  }))
+  default = null
 }

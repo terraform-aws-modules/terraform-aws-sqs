@@ -1,8 +1,22 @@
-data "aws_region" "current" {}
+data "aws_region" "current" {
+  count = var.create ? 1 : 0
 
-data "aws_caller_identity" "current" {}
+  region = var.region
+}
 
-data "aws_partition" "current" {}
+data "aws_caller_identity" "current" {
+  count = var.create ? 1 : 0
+}
+
+data "aws_partition" "current" {
+  count = var.create ? 1 : 0
+}
+
+locals {
+  region     = try(data.aws_region.current[0].region, "")
+  account_id = try(data.aws_caller_identity.current[0].account_id, "")
+  partition  = try(data.aws_partition.current[0].id, "aws")
+}
 
 ################################################################################
 # Queue
@@ -14,6 +28,8 @@ locals {
 
 resource "aws_sqs_queue" "this" {
   count = var.create ? 1 : 0
+
+  region = var.region
 
   content_based_deduplication       = var.content_based_deduplication
   deduplication_scope               = var.deduplication_scope
@@ -44,18 +60,19 @@ data "aws_iam_policy_document" "this" {
   override_policy_documents = var.override_queue_policy_documents
 
   dynamic "statement" {
-    for_each = var.queue_policy_statements
+    for_each = var.queue_policy_statements != null ? var.queue_policy_statements : {}
 
     content {
-      sid           = try(statement.value.sid, null)
-      actions       = try(statement.value.actions, null)
-      not_actions   = try(statement.value.not_actions, null)
-      effect        = try(statement.value.effect, null)
-      resources     = try(statement.value.resources, [aws_sqs_queue.this[0].arn])
-      not_resources = try(statement.value.not_resources, null)
+      sid         = try(coalesce(statement.value.sid, statement.key))
+      actions     = statement.value.actions
+      not_actions = statement.value.not_actions
+      effect      = statement.value.effect
+      # This avoids the chicken vs the egg scenario since its embedded and can reference the queue
+      resources     = statement.value.resources != null ? statement.value.resources : [aws_sqs_queue.this[0].arn]
+      not_resources = statement.value.not_resources
 
       dynamic "principals" {
-        for_each = try(statement.value.principals, [])
+        for_each = statement.value.principals != null ? statement.value.principals : []
 
         content {
           type        = principals.value.type
@@ -64,7 +81,7 @@ data "aws_iam_policy_document" "this" {
       }
 
       dynamic "not_principals" {
-        for_each = try(statement.value.not_principals, [])
+        for_each = statement.value.not_principals != null ? statement.value.not_principals : []
 
         content {
           type        = not_principals.value.type
@@ -73,7 +90,17 @@ data "aws_iam_policy_document" "this" {
       }
 
       dynamic "condition" {
-        for_each = try(statement.value.conditions, [])
+        for_each = statement.value.condition != null ? statement.value.condition : []
+
+        content {
+          test     = condition.value.test
+          values   = condition.value.values
+          variable = condition.value.variable
+        }
+      }
+      # TODO - remove at next breaking change
+      dynamic "condition" {
+        for_each = statement.value.conditions != null ? statement.value.conditions : []
 
         content {
           test     = condition.value.test
@@ -88,6 +115,8 @@ data "aws_iam_policy_document" "this" {
 resource "aws_sqs_queue_policy" "this" {
   count = var.create && var.create_queue_policy ? 1 : 0
 
+  region = var.region
+
   queue_url = aws_sqs_queue.this[0].url
   policy    = data.aws_iam_policy_document.this[0].json
 }
@@ -99,12 +128,16 @@ resource "aws_sqs_queue_policy" "this" {
 resource "aws_sqs_queue_redrive_policy" "this" {
   count = var.create && !var.create_dlq && length(var.redrive_policy) > 0 ? 1 : 0
 
+  region = var.region
+
   queue_url      = aws_sqs_queue.this[0].url
   redrive_policy = jsonencode(var.redrive_policy)
 }
 
 resource "aws_sqs_queue_redrive_policy" "dlq" {
   count = var.create && var.create_dlq ? 1 : 0
+
+  region = var.region
 
   queue_url = aws_sqs_queue.this[0].url
   redrive_policy = jsonencode(
@@ -133,6 +166,8 @@ locals {
 
 resource "aws_sqs_queue" "dlq" {
   count = var.create && var.create_dlq ? 1 : 0
+
+  region = var.region
 
   content_based_deduplication = try(coalesce(var.dlq_content_based_deduplication, var.content_based_deduplication), null)
   deduplication_scope         = try(coalesce(var.dlq_deduplication_scope, var.deduplication_scope), null)
@@ -164,18 +199,19 @@ data "aws_iam_policy_document" "dlq" {
   override_policy_documents = var.override_dlq_queue_policy_documents
 
   dynamic "statement" {
-    for_each = var.dlq_queue_policy_statements
+    for_each = var.dlq_queue_policy_statements != null ? var.dlq_queue_policy_statements : {}
 
     content {
-      sid           = try(statement.value.sid, null)
-      actions       = try(statement.value.actions, null)
-      not_actions   = try(statement.value.not_actions, null)
-      effect        = try(statement.value.effect, null)
-      resources     = try(statement.value.resources, [aws_sqs_queue.dlq[0].arn])
-      not_resources = try(statement.value.not_resources, null)
+      sid         = try(coalesce(statement.value.sid, statement.key))
+      actions     = statement.value.actions
+      not_actions = statement.value.not_actions
+      effect      = statement.value.effect
+      # This avoids the chicken vs the egg scenario since its embedded and can reference the queue
+      resources     = statement.value.resources != null ? statement.value.resources : [aws_sqs_queue.dlq[0].arn]
+      not_resources = statement.value.not_resources
 
       dynamic "principals" {
-        for_each = try(statement.value.principals, [])
+        for_each = statement.value.principals != null ? statement.value.principals : []
 
         content {
           type        = principals.value.type
@@ -184,7 +220,7 @@ data "aws_iam_policy_document" "dlq" {
       }
 
       dynamic "not_principals" {
-        for_each = try(statement.value.not_principals, [])
+        for_each = statement.value.not_principals != null ? statement.value.not_principals : []
 
         content {
           type        = not_principals.value.type
@@ -193,7 +229,17 @@ data "aws_iam_policy_document" "dlq" {
       }
 
       dynamic "condition" {
-        for_each = try(statement.value.conditions, [])
+        for_each = statement.value.condition != null ? statement.value.condition : []
+
+        content {
+          test     = condition.value.test
+          values   = condition.value.values
+          variable = condition.value.variable
+        }
+      }
+      # TODO - remove at next breaking change
+      dynamic "condition" {
+        for_each = statement.value.conditions != null ? statement.value.conditions : []
 
         content {
           test     = condition.value.test
@@ -208,6 +254,8 @@ data "aws_iam_policy_document" "dlq" {
 resource "aws_sqs_queue_policy" "dlq" {
   count = var.create && var.create_dlq && var.create_dlq_queue_policy ? 1 : 0
 
+  region = var.region
+
   queue_url = aws_sqs_queue.dlq[0].url
   policy    = data.aws_iam_policy_document.dlq[0].json
 }
@@ -219,12 +267,16 @@ resource "aws_sqs_queue_policy" "dlq" {
 resource "aws_sqs_queue_redrive_allow_policy" "this" {
   count = var.create && !var.create_dlq && length(var.redrive_allow_policy) > 0 ? 1 : 0
 
+  region = var.region
+
   queue_url            = aws_sqs_queue.this[0].url
   redrive_allow_policy = jsonencode(var.redrive_allow_policy)
 }
 
 resource "aws_sqs_queue_redrive_allow_policy" "dlq" {
   count = var.create && var.create_dlq && var.create_dlq_redrive_allow_policy ? 1 : 0
+
+  region = var.region
 
   queue_url = aws_sqs_queue.dlq[0].url
   redrive_allow_policy = jsonencode(merge(
