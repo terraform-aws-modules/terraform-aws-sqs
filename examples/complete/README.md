@@ -1,6 +1,7 @@
 # Complete SQS Queue Example
 
 Configuration in this directory creates:
+
 - Queue using module default settings
 - FIFO (first-in, first-out) queue
 - Unencrypted queue (encryption disabled)
@@ -15,9 +16,9 @@ Configuration in this directory creates:
 To run this example you need to execute:
 
 ```bash
-$ terraform init
-$ terraform plan
-$ terraform apply
+terraform init
+terraform plan
+terraform apply
 ```
 
 Note that this example may create resources which cost money. Run `terraform destroy` when you don't need these resources.
@@ -44,6 +45,7 @@ Note that this example may create resources which cost money. Run `terraform des
 | <a name="module_default_sqs"></a> [default\_sqs](#module\_default\_sqs) | ../../ | n/a |
 | <a name="module_disabled_sqs"></a> [disabled\_sqs](#module\_disabled\_sqs) | ../../ | n/a |
 | <a name="module_fifo_sqs"></a> [fifo\_sqs](#module\_fifo\_sqs) | ../../ | n/a |
+| <a name="module_kms"></a> [kms](#module\_kms) | terraform-aws-modules/kms/aws | ~> 4.0 |
 | <a name="module_sqs_with_dlq"></a> [sqs\_with\_dlq](#module\_sqs\_with\_dlq) | ../../ | n/a |
 | <a name="module_sse_encrypted_dlq_sqs"></a> [sse\_encrypted\_dlq\_sqs](#module\_sse\_encrypted\_dlq\_sqs) | ../../ | n/a |
 | <a name="module_sse_encrypted_sqs"></a> [sse\_encrypted\_sqs](#module\_sse\_encrypted\_sqs) | ../../ | n/a |
@@ -53,7 +55,6 @@ Note that this example may create resources which cost money. Run `terraform des
 
 | Name | Type |
 |------|------|
-| [aws_kms_key.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kms_key) | resource |
 | [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 | [aws_partition.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/partition) | data source |
 
