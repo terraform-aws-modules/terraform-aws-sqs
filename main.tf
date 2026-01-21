@@ -23,7 +23,8 @@ locals {
 ################################################################################
 
 locals {
-  name = try(trimsuffix(var.name, ".fifo"), "")
+  name        = try(trimsuffix(var.name, ".fifo"), "")
+  static_name = var.fifo_queue ? var.name : local.name
 }
 
 resource "aws_sqs_queue" "this" {

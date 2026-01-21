@@ -14,7 +14,7 @@ output "queue_arn" {
 
 output "queue_arn_static" {
   description = "The ARN of the SQS queue. Use this to avoid cycle errors between resources (e.g., Step Functions)"
-  value       = var.create && !var.use_name_prefix ? "arn:${local.partition}:sqs:${local.region}:${local.account_id}:${local.name}" : ""
+  value       = var.create && !var.use_name_prefix ? "arn:${local.partition}:sqs:${local.region}:${local.account_id}:${local.static_name}" : ""
 }
 
 output "queue_url" {
