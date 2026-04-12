@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file.
 
+## [5.2.1](https://github.com/terraform-aws-modules/terraform-aws-sqs/compare/v5.2.0...v5.2.1) (2026-01-21)
+
+### Bug Fixes
+
+* Correct queue_static_arn output for FIFO queues ([#82](https://github.com/terraform-aws-modules/terraform-aws-sqs/issues/82)) ([eaff237](https://github.com/terraform-aws-modules/terraform-aws-sqs/commit/eaff237e33c72d7b0f6e6af9b2507d51629e5403))
+
+## [5.2.0](https://github.com/terraform-aws-modules/terraform-aws-sqs/compare/v5.1.0...v5.2.0) (2026-01-08)
+
+### Features
+
+* Add provider meta user-agent ([#81](https://github.com/terraform-aws-modules/terraform-aws-sqs/issues/81)) ([95ea966](https://github.com/terraform-aws-modules/terraform-aws-sqs/commit/95ea9660a7bbfd744d0adbdbf09aec60f48e86a8))
+
+## [5.1.0](https://github.com/terraform-aws-modules/terraform-aws-sqs/compare/v5.0.1...v5.1.0) (2025-10-22)
+
+### Features
+
+* Add support for provider `region` resource argument ([#80](https://github.com/terraform-aws-modules/terraform-aws-sqs/issues/80)) ([8d88462](https://github.com/terraform-aws-modules/terraform-aws-sqs/commit/8d884620e57a78d938eb0c7ba84a5ce6cf5369de))
+
+## [5.0.1](https://github.com/terraform-aws-modules/terraform-aws-sqs/compare/v5.0.0...v5.0.1) (2025-10-21)
+
+### Bug Fixes
+
+* Update CI workflow versions to latest ([#79](https://github.com/terraform-aws-modules/terraform-aws-sqs/issues/79)) ([242d94a](https://github.com/terraform-aws-modules/terraform-aws-sqs/commit/242d94ab09c2dec33ffd9ef3efbe863932c516fe))
+
 ## [5.0.0](https://github.com/terraform-aws-modules/terraform-aws-sqs/compare/v4.3.1...v5.0.0) (2025-06-25)
 
 

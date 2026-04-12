@@ -7,13 +7,13 @@ data "aws_caller_identity" "current" {}
 data "aws_partition" "current" {}
 
 locals {
-  name   = "ex-${basename(path.cwd)}"
   region = "eu-west-1"
+  name   = "ex-${basename(path.cwd)}"
 
   tags = {
     Name       = local.name
-    Example    = "complete"
-    Repository = "github.com/terraform-aws-modules/terraform-aws-sqs"
+    Example    = local.name
+    Repository = "https://github.com/terraform-aws-modules/terraform-aws-sqs"
   }
 }
 
@@ -62,7 +62,7 @@ module "cmk_encrypted_sqs" {
   name            = "${local.name}-cmk"
   use_name_prefix = true
 
-  kms_master_key_id                 = aws_kms_key.this.id
+  kms_master_key_id                 = module.kms.key_id
   kms_data_key_reuse_period_seconds = 3600
 
   # Dead letter queue
@@ -173,4 +173,28 @@ module "disabled_sqs" {
 # Supporting resources
 ################################################################################
 
-resource "aws_kms_key" "this" {}
+module "kms" {
+  source  = "terraform-aws-modules/kms/aws"
+  version = "~> 4.0"
+
+  aliases     = ["sqs/${local.name}"]
+  description = "KMS key to encrypt queue"
+
+  # Policy
+  key_statements = [
+    {
+      sid = "SQS"
+      actions = [
+        "kms:GenerateDataKey*",
+        "kms:Decrypt"
+      ]
+      resources = ["*"]
+      principals = [{
+        type        = "Service"
+        identifiers = ["sqs.amazonaws.com"]
+      }]
+    }
+  ]
+
+  tags = local.tags
+}
