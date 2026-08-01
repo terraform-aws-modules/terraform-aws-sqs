@@ -27,20 +27,20 @@ Note that this example may create resources which cost money. Run `terraform des
 ## Requirements
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.5.7 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.28 |
 
 ## Providers
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="provider_aws"></a> [aws](#provider\_aws) | >= 6.28 |
 
 ## Modules
 
 | Name | Source | Version |
-|------|--------|---------|
+| ---- | ------ | ------- |
 | <a name="module_cmk_encrypted_sqs"></a> [cmk\_encrypted\_sqs](#module\_cmk\_encrypted\_sqs) | ../../ | n/a |
 | <a name="module_default_sqs"></a> [default\_sqs](#module\_default\_sqs) | ../../ | n/a |
 | <a name="module_disabled_sqs"></a> [disabled\_sqs](#module\_disabled\_sqs) | ../../ | n/a |
@@ -54,7 +54,7 @@ Note that this example may create resources which cost money. Run `terraform des
 ## Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 | [aws_partition.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/partition) | data source |
 
@@ -65,7 +65,7 @@ No inputs.
 ## Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | <a name="output_cmk_encrypted_sqs_dlq_arn"></a> [cmk\_encrypted\_sqs\_dlq\_arn](#output\_cmk\_encrypted\_sqs\_dlq\_arn) | The ARN of the SQS queue |
 | <a name="output_cmk_encrypted_sqs_dlq_id"></a> [cmk\_encrypted\_sqs\_dlq\_id](#output\_cmk\_encrypted\_sqs\_dlq\_id) | The URL for the created Amazon SQS queue |
 | <a name="output_cmk_encrypted_sqs_dlq_name"></a> [cmk\_encrypted\_sqs\_dlq\_name](#output\_cmk\_encrypted\_sqs\_dlq\_name) | The name of the SQS queue |
