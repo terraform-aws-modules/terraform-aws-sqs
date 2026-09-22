@@ -26,6 +26,11 @@ module "default_sqs" {
 
   name = "${local.name}-default"
 
+  # These optional roles must already exist. They receive access only to the
+  # main queue, not to its dead letter queue.
+  producer_role_arn = var.producer_role_arn
+  consumer_role_arn = var.consumer_role_arn
+
   tags = local.tags
 }
 

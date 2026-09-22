@@ -62,6 +62,34 @@ variable "kms_master_key_id" {
   default     = null
 }
 
+variable "producer_role_arn" {
+  description = "ARN of an existing IAM role that can send messages to the main queue. This does not grant access to the dead letter queue"
+  type        = string
+  default     = null
+
+  validation {
+    condition = (
+      var.producer_role_arn == null ||
+      can(regex("^arn:(aws|aws-us-gov|aws-cn):iam::[0-9]{12}:role/.+$", var.producer_role_arn))
+    )
+    error_message = "producer_role_arn must be a valid IAM role ARN."
+  }
+}
+
+variable "consumer_role_arn" {
+  description = "ARN of an existing IAM role that can consume messages from the main queue. This does not grant access to the dead letter queue"
+  type        = string
+  default     = null
+
+  validation {
+    condition = (
+      var.consumer_role_arn == null ||
+      can(regex("^arn:(aws|aws-us-gov|aws-cn):iam::[0-9]{12}:role/.+$", var.consumer_role_arn))
+    )
+    error_message = "consumer_role_arn must be a valid IAM role ARN."
+  }
+}
+
 variable "max_message_size" {
   description = "The limit of how many bytes a message can contain before Amazon SQS rejects it. An integer from 1024 bytes (1 KiB) up to 1048576 bytes (1024 KiB). The default for this attribute is 262144 (256 KiB)"
   type        = number
