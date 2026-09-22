@@ -3,6 +3,7 @@ module "wrapper" {
 
   for_each = var.items
 
+  consumer_role_arn                     = try(each.value.consumer_role_arn, var.defaults.consumer_role_arn, null)
   content_based_deduplication           = try(each.value.content_based_deduplication, var.defaults.content_based_deduplication, null)
   create                                = try(each.value.create, var.defaults.create, true)
   create_dlq                            = try(each.value.create_dlq, var.defaults.create_dlq, false)
@@ -34,6 +35,7 @@ module "wrapper" {
   name                                  = try(each.value.name, var.defaults.name, null)
   override_dlq_queue_policy_documents   = try(each.value.override_dlq_queue_policy_documents, var.defaults.override_dlq_queue_policy_documents, [])
   override_queue_policy_documents       = try(each.value.override_queue_policy_documents, var.defaults.override_queue_policy_documents, [])
+  producer_role_arn                     = try(each.value.producer_role_arn, var.defaults.producer_role_arn, null)
   queue_policy_statements               = try(each.value.queue_policy_statements, var.defaults.queue_policy_statements, null)
   receive_wait_time_seconds             = try(each.value.receive_wait_time_seconds, var.defaults.receive_wait_time_seconds, null)
   redrive_allow_policy                  = try(each.value.redrive_allow_policy, var.defaults.redrive_allow_policy, {})

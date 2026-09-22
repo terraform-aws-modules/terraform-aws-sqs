@@ -27,6 +27,11 @@ output "queue_name" {
   value       = try(aws_sqs_queue.this[0].name, null)
 }
 
+output "queue_access_policy_names" {
+  description = "Names of the inline queue access policies, indexed by existing IAM role ARN"
+  value       = { for role_arn, policy in aws_iam_role_policy.queue_access : role_arn => policy.name }
+}
+
 ################################################################################
 # Dead Letter Queue
 ################################################################################

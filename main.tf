@@ -25,6 +25,15 @@ locals {
 locals {
   name        = try(trimsuffix(var.name, ".fifo"), "")
   static_name = var.fifo_queue ? var.name : local.name
+
+  queue_access_roles = {
+    for role_arn in toset(compact([var.producer_role_arn, var.consumer_role_arn])) : role_arn => {
+      consumer = var.consumer_role_arn == role_arn
+      producer = var.producer_role_arn == role_arn
+    }
+  }
+
+  queue_arn = try(aws_sqs_queue.this[0].arn, "")
 }
 
 resource "aws_sqs_queue" "this" {
@@ -48,6 +57,98 @@ resource "aws_sqs_queue" "this" {
   visibility_timeout_seconds        = var.visibility_timeout_seconds
 
   tags = var.tags
+}
+
+################################################################################
+# Existing IAM Role Access
+################################################################################
+
+data "aws_iam_role" "queue_access" {
+  for_each = local.queue_access_roles
+
+  name = basename(each.key)
+}
+
+data "aws_kms_key" "queue" {
+  count = length(local.queue_access_roles) > 0 && var.kms_master_key_id != null ? 1 : 0
+
+  key_id = var.kms_master_key_id
+}
+
+# AWS does not limit the number of inline policies, but their total size on one
+# role cannot exceed 10,240 characters.
+resource "aws_iam_role_policy" "queue_access" {
+  for_each = local.queue_access_roles
+
+  name = substr("${coalesce(var.name, "sqs")}-queue-access-${substr(sha1(each.key), 0, 8)}", 0, 128)
+  role = data.aws_iam_role.queue_access[each.key].name
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = concat(
+      each.value.producer ? [
+        {
+          Sid = "ProduceMessages"
+          Action = [
+            "sqs:GetQueueUrl",
+            "sqs:SendMessage",
+            "sqs:SendMessageBatch",
+          ]
+          Effect   = "Allow"
+          Resource = local.queue_arn
+        },
+      ] : [],
+      each.value.consumer ? [
+        {
+          Sid = "ConsumeMessages"
+          Action = [
+            "sqs:ChangeMessageVisibility",
+            "sqs:ChangeMessageVisibilityBatch",
+            "sqs:DeleteMessage",
+            "sqs:DeleteMessageBatch",
+            "sqs:GetQueueAttributes",
+            "sqs:GetQueueUrl",
+            "sqs:ReceiveMessage",
+          ]
+          Effect   = "Allow"
+          Resource = local.queue_arn
+        },
+      ] : [],
+      var.kms_master_key_id == null ? [] : [
+        {
+          Sid = "UseQueueKmsKey"
+          Action = each.value.producer ? [
+            "kms:Decrypt",
+            "kms:GenerateDataKey",
+          ] : ["kms:Decrypt"]
+          Condition = {
+            StringEquals = {
+              "kms:EncryptionContext:aws:sqs:arn" = local.queue_arn
+              "kms:ViaService"                    = "sqs.${local.region}.${data.aws_partition.current[0].dns_suffix}"
+            }
+          }
+          Effect   = "Allow"
+          Resource = data.aws_kms_key.queue[0].arn
+        },
+      ],
+    )
+  })
+
+  lifecycle {
+    precondition {
+      condition     = var.create
+      error_message = "create must be true when producer_role_arn or consumer_role_arn is set."
+    }
+
+    precondition {
+      condition     = local.account_id == split(":", each.key)[4]
+      error_message = "Queue access role ARNs must belong to the AWS account used by this module."
+    }
+
+    precondition {
+      condition     = data.aws_iam_role.queue_access[each.key].arn == each.key
+      error_message = "Queue access role ARNs must identify the existing IAM roles resolved by AWS."
+    }
+  }
 }
 
 ################################################################################

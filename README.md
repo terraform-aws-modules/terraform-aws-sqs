@@ -39,6 +39,28 @@ module "sqs" {
 }
 ```
 
+### Existing IAM Role Access
+
+The roles must already exist in the same AWS account as the queue. The module
+adds one inline policy to each distinct role. If the same role is used for both
+inputs, the module creates one policy with both access profiles.
+
+```hcl
+module "sqs" {
+  source = "terraform-aws-modules/sqs/aws"
+
+  name = "orders"
+
+  producer_role_arn = "arn:aws:iam::123456789012:role/orders-producer"
+  consumer_role_arn = "arn:aws:iam::123456789012:role/orders-consumer"
+}
+```
+
+Producer access allows sending messages. Consumer access allows receiving,
+deleting, and changing the visibility of messages. When a customer managed KMS
+key is configured, the policy also contains the required scoped KMS access.
+These roles receive access only to the main queue, not to its dead letter queue.
+
 ### Queue w/ Dead Letter Queue
 
 ```hcl
@@ -165,14 +187,14 @@ module "sqs" {
 ## Requirements
 
 | Name | Version |
-| ---- | ------- |
+|------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.5.7 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.28 |
 
 ## Providers
 
 | Name | Version |
-| ---- | ------- |
+|------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | >= 6.28 |
 
 ## Modules
@@ -182,7 +204,8 @@ No modules.
 ## Resources
 
 | Name | Type |
-| ---- | ---- |
+|------|------|
+| [aws_iam_role_policy.queue_access](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy) | resource |
 | [aws_sqs_queue.dlq](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sqs_queue) | resource |
 | [aws_sqs_queue.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sqs_queue) | resource |
 | [aws_sqs_queue_policy.dlq](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sqs_queue_policy) | resource |
@@ -194,13 +217,16 @@ No modules.
 | [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 | [aws_iam_policy_document.dlq](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_iam_role.queue_access](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_role) | data source |
+| [aws_kms_key.queue](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/kms_key) | data source |
 | [aws_partition.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/partition) | data source |
 | [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) | data source |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-| ---- | ----------- | ---- | ------- | :------: |
+|------|-------------|------|---------|:--------:|
+| <a name="input_consumer_role_arn"></a> [consumer\_role\_arn](#input\_consumer\_role\_arn) | ARN of an existing IAM role that can consume messages from the main queue. This does not grant access to the dead letter queue | `string` | `null` | no |
 | <a name="input_content_based_deduplication"></a> [content\_based\_deduplication](#input\_content\_based\_deduplication) | Enables content-based deduplication for FIFO queues | `bool` | `null` | no |
 | <a name="input_create"></a> [create](#input\_create) | Whether to create SQS queue | `bool` | `true` | no |
 | <a name="input_create_dlq"></a> [create\_dlq](#input\_create\_dlq) | Determines whether to create SQS dead letter queue | `bool` | `false` | no |
@@ -232,6 +258,7 @@ No modules.
 | <a name="input_name"></a> [name](#input\_name) | This is the human-readable name of the queue. If omitted, Terraform will assign a random name | `string` | `null` | no |
 | <a name="input_override_dlq_queue_policy_documents"></a> [override\_dlq\_queue\_policy\_documents](#input\_override\_dlq\_queue\_policy\_documents) | List of IAM policy documents that are merged together into the exported document. In merging, statements with non-blank `sid`s will override statements with the same `sid` | `list(string)` | `[]` | no |
 | <a name="input_override_queue_policy_documents"></a> [override\_queue\_policy\_documents](#input\_override\_queue\_policy\_documents) | List of IAM policy documents that are merged together into the exported document. In merging, statements with non-blank `sid`s will override statements with the same `sid` | `list(string)` | `[]` | no |
+| <a name="input_producer_role_arn"></a> [producer\_role\_arn](#input\_producer\_role\_arn) | ARN of an existing IAM role that can send messages to the main queue. This does not grant access to the dead letter queue | `string` | `null` | no |
 | <a name="input_queue_policy_statements"></a> [queue\_policy\_statements](#input\_queue\_policy\_statements) | A map of IAM policy [statements](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document#statement) for custom permission usage | <pre>map(object({<br/>    sid           = optional(string)<br/>    actions       = optional(list(string))<br/>    not_actions   = optional(list(string))<br/>    effect        = optional(string, "Allow")<br/>    resources     = optional(list(string))<br/>    not_resources = optional(list(string))<br/>    principals = optional(list(object({<br/>      type        = string<br/>      identifiers = list(string)<br/>    })))<br/>    not_principals = optional(list(object({<br/>      type        = string<br/>      identifiers = list(string)<br/>    })))<br/>    condition = optional(list(object({<br/>      test     = string<br/>      variable = string<br/>      values   = list(string)<br/>    })))<br/>    # TODO - remove at next breaking change<br/>    conditions = optional(list(object({<br/>      test     = string<br/>      variable = string<br/>      values   = list(string)<br/>    })))<br/>  }))</pre> | `null` | no |
 | <a name="input_receive_wait_time_seconds"></a> [receive\_wait\_time\_seconds](#input\_receive\_wait\_time\_seconds) | The time for which a ReceiveMessage call will wait for a message to arrive (long polling) before returning. An integer from 0 to 20 (seconds) | `number` | `null` | no |
 | <a name="input_redrive_allow_policy"></a> [redrive\_allow\_policy](#input\_redrive\_allow\_policy) | The JSON policy to set up the Dead Letter Queue redrive permission, see AWS docs | `any` | `{}` | no |
@@ -247,12 +274,13 @@ No modules.
 ## Outputs
 
 | Name | Description |
-| ---- | ----------- |
+|------|-------------|
 | <a name="output_dead_letter_queue_arn"></a> [dead\_letter\_queue\_arn](#output\_dead\_letter\_queue\_arn) | The ARN of the SQS queue |
 | <a name="output_dead_letter_queue_arn_static"></a> [dead\_letter\_queue\_arn\_static](#output\_dead\_letter\_queue\_arn\_static) | The ARN of the SQS queue. Use this to avoid cycle errors between resources (e.g., Step Functions) |
 | <a name="output_dead_letter_queue_id"></a> [dead\_letter\_queue\_id](#output\_dead\_letter\_queue\_id) | The URL for the created Amazon SQS queue |
 | <a name="output_dead_letter_queue_name"></a> [dead\_letter\_queue\_name](#output\_dead\_letter\_queue\_name) | The name of the SQS queue |
 | <a name="output_dead_letter_queue_url"></a> [dead\_letter\_queue\_url](#output\_dead\_letter\_queue\_url) | Same as `dead_letter_queue_id`: The URL for the created Amazon SQS queue |
+| <a name="output_queue_access_policy_names"></a> [queue\_access\_policy\_names](#output\_queue\_access\_policy\_names) | Names of the inline queue access policies, indexed by existing IAM role ARN |
 | <a name="output_queue_arn"></a> [queue\_arn](#output\_queue\_arn) | The ARN of the SQS queue |
 | <a name="output_queue_arn_static"></a> [queue\_arn\_static](#output\_queue\_arn\_static) | The ARN of the SQS queue. Use this to avoid cycle errors between resources (e.g., Step Functions) |
 | <a name="output_queue_id"></a> [queue\_id](#output\_queue\_id) | The URL for the created Amazon SQS queue |
